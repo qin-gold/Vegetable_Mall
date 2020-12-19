@@ -1,22 +1,15 @@
 # Vegetable_Mall 购物商城
 # 简单介绍
-本项目使用Spring+SpringMVC+Mybatis来实现了一个网上商城系统，可以使用maven构建为war包进行部署，也可部署在Tomcat中运行。
+本项目使用Spring+SpringMVC+Mybatis+thymeleaf来实现了一个网上商城系统，可以使用maven构建为war包进行部署，也可部署在Tomcat中运行。
 # 本地开发运行部署
   环境准备：
   idea、mysql
-  下载 zip 直接解压或安装 git 后执行克隆命令 git@github.com:imfing/handgo.git
-
-其他系统
-
-在 MySQL 中创建数据库 handgo
-
-导入项目至 IDEA，将工程中的 handgo.sql导入 MySQL
-
-运行各个系统
-
-后台管理系统
-
-进入后台管理系统目录在命令行中输入 npm run dev 运行。地址为:http://localhost:8080
+  下载 zip 直接解压或安装 git 后执行克隆命令 https://github.com/qsj-kiss/Vegetable_Mall.git
+  在 MySQL 中创建数据库 Vegetable_Mall
+  导入项目至 IDEA，将工程中的 Vegetable_Mall.sql导入 MySQL
+  将shop文件夹放置到项目外，在Tomcat配置中将shop文件夹中的images配置进去路径名设置为pubimages，文件夹位置具体修改utils中的UploadUtil.java文件
+  项目日志文件默认写入shop文件夹中的logs文件夹中（具体位置也需要在log4j.properties文件中修改）
+  项目启动默认地址为:http://localhost:8080
 # 主要功能
   ## 1.普通用户
       登录、注册功能

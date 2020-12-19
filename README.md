@@ -1,6 +1,22 @@
 # Vegetable_Mall 购物商城
 # 简单介绍
 本项目使用Spring+SpringMVC+Mybatis来实现了一个网上商城系统，可以使用maven构建为war包进行部署，也可部署在Tomcat中运行。
+# 本地开发运行部署
+  环境准备：
+  idea、mysql
+  下载 zip 直接解压或安装 git 后执行克隆命令 git@github.com:imfing/handgo.git
+
+其他系统
+
+在 MySQL 中创建数据库 handgo
+
+导入项目至 IDEA，将工程中的 handgo.sql导入 MySQL
+
+运行各个系统
+
+后台管理系统
+
+进入后台管理系统目录在命令行中输入 npm run dev 运行。地址为:http://localhost:8080
 # 主要功能
   ## 1.普通用户
       登录、注册功能
@@ -26,3 +42,4 @@
    ## 2.User
       username=qsj
       password=qwe123
+  

@@ -8,6 +8,7 @@
       在 MySQL 中创建数据库 Vegetable_Mall
       导入项目至 IDEA，将工程中的 Vegetable_Mall.sql导入 MySQL
       将shop文件夹放置到项目外，在Tomcat配置中将shop文件夹中的images配置进去路径名设置为pubimages，文件夹位置具体修改utils中的UploadUtil.java文件
+      需要使用邮箱功能需要再email.properties中自行配置
       项目日志文件默认写入shop文件夹中的logs文件夹中（具体位置也需要在log4j.properties文件中修改）
       项目启动默认地址为:http://localhost:8080
 # 主要功能

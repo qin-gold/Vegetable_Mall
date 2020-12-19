@@ -1,0 +1,122 @@
+/* 样式 */
+#box #middle .mid .text2 {
+    font-family: 幼圆;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    overflow: hidden;
+    background: url(../../../images/bg.jpg) no-repeat;
+    background-size: cover;
+}
+
+#box {
+    width: 100%;
+    height: auto;
+}
+
+.nav-link {
+    color: white;
+}
+
+.nav-link:hover {
+    color: #818182;
+}
+
+/* 动画 */
+@-webkit-keyframes slideInDown {
+    from {
+        -webkit-transform: translate3d(0, -100%, 0);
+        visibility: visible;
+        opacity: 0;
+    }
+    to {
+        -webkit-transform: translate3d(0, 0, 0);
+        opacity: 1;
+    }
+}
+
+#dao {
+    -webkit-animation: slideInDown 2s;
+}
+
+@-webkit-keyframes FadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes FadeIn2 {
+    from {
+        opacity: 0.4;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+body {
+    -webkit-animation: FadeIn 2s;
+}
+
+@-webkit-keyframes fadeInLeft {
+    from {
+        left: -8.5%;
+    }
+    to {
+        left: 0%;
+    }
+}
+
+.col-4 {
+    position: absolute;
+    width: 10%;
+    left: -8.5%;
+    top: 30%;
+
+}
+
+.col-4:hover {
+    -webkit-animation: fadeInLeft 1s;
+    left: 0%;
+}
+
+td, th {
+    text-align: center;
+}
+
+<!--
+-分页样式---- >
+ul.pagination {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+}
+
+ul.pagination li {
+    display: inline;
+}
+
+ul.pagination li a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+ul.pagination li a.active {
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 5px;
+}
+
+ul.pagination li a:hover:not(.active) {
+    background-color: #8a6d3b;
+}

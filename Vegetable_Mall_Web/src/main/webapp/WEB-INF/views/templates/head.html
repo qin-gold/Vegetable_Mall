@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>head</title>
+</head>
+<body>
+<header th:fragment="header">
+    <div class="container">
+        <div class="row top-header">
+            <div class="col-sm-3 text-left">
+                <a href="#" class="logo">
+                    <img src="../../images/logo.png" alt="logo">
+                </a>
+            </div>
+            <div class="col-sm-9">
+                <ul class="top-link pull-right">
+                    <li class="hidden-xs"><a href="">供应商</a></li>
+                    <li class="hidden-xs"><a href="">用户服务</a></li>
+                    <li class="hidden-xs"><a href="">企业采购</a></li>
+                    <li class="hidden-xs"><a href="#">关于我们</a></li>
+                    <li class="dropdown hidden-xs">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" id="dropdownMenu1" aria-haspopup="true" aria-expanded="false">用户管理<span class="caret"></span></a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                               <li th:unless="${session.user}"><a href="/login">登录</a></li>
+                               <li th:unless="${session.user}"><a href="/register">注册</a></li>
+                               <li th:unless="${session.user}"><a href="/adminLogin/in">管理员登录</a></li>
+                               <li th:if="${session.user}"><a href="/" th:text="'当前用户:'+${session.user.u_name}"></a></li>
+                               <li th:if="${session.user}"><a href="/loginBefore/information">查看用户信息</a></li>
+                               <li th:if="${session.user}"><a href="/loginBefore/ordersView">查看我的订单</a></li>
+                               <li th:if="${session.user}"><a href="/loginBefore/shoppingCart">购物车</a></li>
+                               <li th:if="${session.user}"><a href="/user/loginOut">注销</a></li>
+                        </ul>
+                    </li>
+                    <li class="pull-right">
+                        <div class="cart dropdown">
+                            <a href="/loginBefore/shoppingCart" class="cart-item dropdown-toggle" id="dropdownMenu2" aria-haspopup="true" aria-expanded="false">
+                                <span th:unless="${session.user}">0</span>
+                                <span th:if="${session.user}" th:text="${model}"></span>
+                                <i class="fa fa-cart-plus"></i>
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="bg-mn color-inher">
+            <div class="row m-0">
+                <div class="col-sm-1 col-md-1 col-lg-2 p-0">
+                    <div class="dropdown category-bar">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="true">
+                            <i class="fa fa-bars"></i><span>所有类别</span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/vegetables"><span><img src="../../../images/vegetable.jpg" width="50" alt="image"></span>蔬菜区</a></li>
+                            <li><a href="/fruit"><span><img src="../../../images/fruit.jpg" width="50" alt="image"></span>水果区</a></li>
+                            <li><a href="/meat"><span><img src="../../../images/meat.jpg" width="50" alt="image"></span>肉类区</a></li>
+                            <li><a href="/dairy"><span><img src="../../../images/dairy.jpg" width="50" alt="image"></span>乳制品区</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-8 col-md-8 col-lg-7 p-0">
+                    <div class="main-menu">
+                        <nav class="navbar navbar-default menu">
+                            <div class="navbar-header">
+                                <button type="button" class="navbar-toggle collapsed m-r-xs-15" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                            </div>
+                            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                                <ul class="nav navbar-nav">
+                                    <li><a href="/index" style="font-size:18px">首  页</a></li>
+                                    <li><a href="/vegetables" style="font-size:18px">蔬菜区</a></li>
+                                    <li><a href=/fruit style="font-size:18px">水果区</a></li>
+                                    <li><a href="/meat" style="font-size:18px">肉类区</a></li>
+                                    <li><a href="/dairy" style="font-size:18px">乳制品区</a></li>
+
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+                <div class="col-sm-3 col-md-3 col-lg-3 p-0">
+                    <div class="search-box m-l-xs-15 m-r-xs-15">
+                        <input type="text" class="form-item" placeholder="请输入...">
+                        <button type="submit" class="fa fa-search search"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<nav th:fragment="bgHeader" id="dao" class="navbar navbar-expand-lg navbar-transparent navbar-fixed-top" role="navigation">
+    <a class="navbar-brand" style="color: white; font-family: 幼圆; user-select: none;">
+        <img src="../../../images/logo.png" width="35" height="35" class="d-inline-block align-top" alt="">
+        Organic
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+            aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="/index">返回商城主页<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+                    <a class="nav-link" href="/adminLogin/loginOut">
+                        注销
+                    </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">关于</a>
+            </li>
+            <li style="position: absolute; right: 5%;" class="nav-item">
+                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">
+                    <svg class="bi bi-person-plus" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M11 14s1 0 1-1-1-4-6-4-6 3-6 4 1 1 1 1h10zm-9.995-.944v-.002.002zM1.022 13h9.956a.274.274 0 0 0 .014-.002l.008-.002c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664a1.05 1.05 0 0 0 .022.004zm9.974.056v-.002.002zM6 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0zm4.5 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"
+                              clip-rule="evenodd" />
+                        <path fill-rule="evenodd" d="M13 7.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0v-2z" clip-rule="evenodd" />
+                    </svg>
+                    欢迎您 管理员
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+</body>
+</html>

@@ -1,0 +1,226 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>注册页面</title>
+    <!-- JqueryUI -->
+    <link rel="stylesheet" type="text/css" href="../../../css/jquery-ui.css">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" type="text/css" href="../../../css/bootstrap.min.css">
+    <!-- Awesome font icons -->
+    <link rel="stylesheet" type="text/css" href="../../../css/font-awesome.min.css" media="screen">
+    <!-- Owlcoursel -->
+    <link rel="stylesheet" type="text/css" href="../../../css/owl-coursel/owl.carousel.css">
+    <link rel="stylesheet" type="text/css" href="../../../css/owl-coursel/owl.transitions.css">
+    <!-- Magnific-popup -->
+    <link rel="stylesheet" type="text/css" href="../../../css/magnific-popup/magnific-popup.css">
+    <!-- Style -->
+    <link rel="stylesheet" type="text/css" href="../../../css/style.css" media="screen">
+    <!-- Fw -->
+    <link rel="stylesheet" type="text/css" href="../../../css/fw.css" media="screen">
+</head>
+<body>
+<div class="preloader">
+    <i class="fa fa-spinner"></i>
+</div>
+<header th:insert="templates/head :: header"></header>
+<div class="heading-inner-page">
+    <div class="container">
+        <h2>注册</h2>
+        <ul class="breadcrumb">
+            <li><a href="/index">首页</a></li>
+            <li>注册</li>
+        </ul>
+    </div>
+</div>
+<!-- 注册页面 -->
+<div class="m-t-60">
+    <div class="container">
+        <div class="bg-img-2 position-left">
+            <div class="row">
+                <div class="col-sm-6 col-sm-offset-3">
+                    <div class="box p-40 p-xs-20 bg-white">
+                            <div class="form-group">
+                                <label class="control-labe" for="email">邮箱</label>
+                                <input type="text" name="email" value="" placeholder="请输入您的邮箱" id="email"
+                                       class="form-control form-item" onblur="checkEmail()">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="phone">手机号码</label>
+                                <input type="text" name="text" value="" placeholder="请输入您的手机号码" id="phone"
+                                       class="form-control form-item" onblur="checkNumber()">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="password">密码</label>
+                                <input type="password" name="password" value="" placeholder="请输入您的密码密码应为6-16位数字和字母的集合"
+                                       id="password" class="form-control form-item" onblur="o_checkPassword()">
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" for="t_password">再次输入密码</label>
+                                <input type="password" name="checkPassword" value="" placeholder="请再次输入您的密码"
+                                       id="t_password" class="form-control form-item" onblur="t_checkPassword()">
+                            </div>
+                            <div class="m-t-15">
+                                <input type="checkbox" name="agree" class="m-r-10" value="1" onclick="checkboxs()"
+                                       id="check"> 我已经阅读了文档
+                                <a href="#" class="agree"><b class="color-6">注意文档</b></a>
+                                <br>
+                            </div>
+                            <button type="button" class="btn ht-btn bg-6 m-t-30" id="checkbox" onclick="register()">注册</button>
+                            <a href="/login"><button  class="btn-primary radius btn ht-btn m-t-30 bg-6 btn_login" >已有账号登录</button></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<footer th:insert="templates/footer :: footers"></footer>
+<!-- jQuery -->
+<script src="../../../js/jquery/jquery-2.2.4.min.js"></script>
+<!-- JqueryUI -->
+<script src="../../../js/jquery/jquery-ui.js"></script>
+<!-- Bootstrap -->
+<script src="../../../js/bootstrap/bootstrap.min.js"></script>
+<!-- Owl-coursel -->
+<script src="../../../js/owl-coursel/owl.carousel.js"></script>
+<!-- Magnific-popup -->
+<script src="../../../js/magnific-popup/jquery.magnific-popup.min.js"></script>
+<!-- Script -->
+<script src="../../../js/script.js"></script>
+<script src="../../../js/alter.js"></script>
+<script>
+    var Email = false;
+    var Number = false;
+    var Password = false;
+    var t_Password = false;
+    var CheckSelect = false;
+
+    function checkEmail() {
+        var email = $("#email").val();
+        var szReg = /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/;
+        var bChk = szReg.test(email);
+        if (email.length == 0) {
+            alert("你输入的邮箱为空，请重新输入")
+            return;
+        } else if (bChk == false) {
+            console.log(bChk)
+            alert("你输入的邮箱有误，请重新输入")
+            return;
+        } else {
+            $.ajax({
+                type: 'post',
+                dataType: 'json',
+                contentType: 'application/json;charset=utf-8',
+                url: '/user/checkEmailExist',
+                data: JSON.stringify({email: email}),
+                success: function (data) {
+                    if (data.stateCode === 200) {
+                        console.log(data.stateCode)
+                        alert("邮箱重复,请换一个邮箱，或者选择忘记密码")
+                    } else {
+                        console.log(data.stateCode);
+                        Email = true;
+                    }
+                }
+            })
+        }
+    }
+
+    function checkNumber() {
+        var phone = $("#phone").val();
+        var szReg = /^(0|86|17951)?(13[0-9]|15[012356789]|166|17[3678]|18[0-9]|14[57])[0-9]{8}$/;
+        var bChk = szReg.test(phone);
+        if (phone.length == 0) {
+            alert("你输入的电话号码为空，请重新输入")
+            return;
+        } else if (bChk == false) {
+            console.log(bChk)
+            alert("你输入的电话号码有误，请重新输入")
+            return;
+        } else {
+            $.ajax({
+                type: 'post',
+                dataType: 'json',
+                contentType: 'application/json;charset=utf-8',
+                url: '/user/checkNumberExist',
+                data: JSON.stringify({phone: phone}),
+                success: function (data) {
+                    if (data.stateCode === 200) {
+                        console.log(data.stateCode)
+                        alert("电话号码重复,请换一个电话号码，或者选择忘记密码")
+                    } else {
+                        console.log(data.stateCode);
+                        Number = true;
+                    }
+                }
+            })
+        }
+    }
+
+    function o_checkPassword() {
+        var password = $("#password").val();
+        var szReg = /^(?=.{6,16})(?=.*[a-z])(?=.*[0-9])[0-9a-z]*$/;
+        var bChk = szReg.test(password);
+        if (password.length == 0) {
+            alert("你输入的密码空，请重新输入")
+            return;
+        } else if (bChk == false) {
+            console.log(bChk)
+            alert("你输入的密码不符合要求，请重新输入")
+            return;
+        } else {
+            Password = true;
+        }
+    }
+
+    function t_checkPassword() {
+        var t_password = $("#t_password").val();
+        var password = $("#password").val();
+        if (t_password != password) {
+            alert("你2次输入的密码不相同，请重新输入")
+            return;
+        } else {
+            t_Password = true;
+        }
+    }
+
+    function checkboxs() {
+        var check = $("#check").prop("checked");
+        CheckSelect = check;
+    }
+
+    function register() {
+        if (Email && Number && Password && t_Password && CheckSelect) {
+            var email = $("#email").val();
+            var phone = $("#phone").val();
+            var password = $("#password").val();
+            $.post("user/register", {email: email, phone: phone, u_password : password}, function (data) {
+                if (data === null) {
+                    alert("账户或密码错误");
+                }
+                if (data.stateCode === 200) {
+                        alert("注册成功,将跳转登录页面")
+                        window.location.href = '/login'
+                } else {
+                    alert("账户或密码错误");
+                }
+            }, "json")
+        } else
+            alert("注册失败，请检查数据是否填写正确")
+    }
+    $(".search").on('click',function () {
+        var val = $(".form-item").val();
+        var str = val.replace(/(^\s*)|(\s*$)/g, '')
+        if (str===null||str===''){
+            alert("请输入你要搜索的信息")
+        }else {
+            console.log(val)
+            window.location.href="/search?text="+str
+        }
+    })
+</script>
+</body>
+</html>
+

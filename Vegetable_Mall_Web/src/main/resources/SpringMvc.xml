@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc.xsd
+       http://www.springframework.org/schema/context 
+       http://www.springframework.org/schema/context/spring-context.xsd">
+    <!-- 开启注解扫描，只扫描Controller-->
+    <context:component-scan base-package="com">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+    <!--    开启SpringMvc注解的支持-->
+    <mvc:annotation-driven/>
+    <mvc:default-servlet-handler/>
+    <!-- 文件上传的配置 -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!-- 指定所上传文件的总大小不能超过2000KB。注意maxUploadSize属性的限制不是针对单个文件，而是所有文件的容量之和 -->
+        <property name="maxUploadSize" value="4096000"/>
+        <property name="maxInMemorySize" value="4096000"/>
+    </bean>
+    <!-- 该异常是SpringMVC在检查上传的文件信息时抛出来的，而且此时还没有进入到Controller方法中 -->
+    <bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+        <property name="exceptionMappings">
+            <props>
+                <!-- 遇到MaxUploadSizeExceededException异常时，自动跳转到WebContent目录下的error.jsp页面 -->
+                <prop key="org.springframework.web.multipart.MaxUploadSizeExceededException">error</prop>
+            </props>
+        </property>
+    </bean>
+    <!--模板引擎配置-->
+    <bean id="templateResolver" class="org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver">
+        <!--前缀配置-->
+        <property name="prefix" value="/WEB-INF/views/"></property>
+        <!--后缀配置-->
+        <property name="suffix" value=".html"></property>
+        <!--模板类型-->
+        <property name="templateMode" value="HTML"></property>
+        <!--不使用缓存-->
+        <property name="cacheable" value="false"></property>
+        <!--编码类型-->
+        <property name="characterEncoding" value="UTF-8"></property>
+    </bean>
+    <!--模板引擎配置-->
+    <bean id="templateEngine" class="org.thymeleaf.spring5.SpringTemplateEngine">
+        <property name="templateResolver" ref="templateResolver"></property>
+    </bean>
+    <!--视图处理器-->
+    <bean class="org.thymeleaf.spring5.view.ThymeleafViewResolver">
+        <property name="templateEngine" ref="templateEngine"></property>
+        <property name="characterEncoding" value="UTF-8"></property>
+    </bean>
+    <!--配置拦截器-->
+    <mvc:interceptors>
+        <!-- 多个拦截器，按顺序执行 -->
+        <mvc:interceptor>
+            <mvc:mapping path="/admin/**"/> <!-- 表示拦截所有的url包括子url路径 -->
+            <bean class="com.shop.fitter.AdminLoginInterceptor"/>
+        </mvc:interceptor>
+        <mvc:interceptor>
+            <mvc:mapping path="/loginBefore/**"/>
+            <bean class="com.shop.fitter.UserLoginInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+</beans>

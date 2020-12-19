@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>登录页面</title>
+		<!-- JqueryUI -->
+		<link rel="stylesheet" type="text/css" href="../../../css/jquery-ui.css">
+		<!-- Bootstrap -->
+		<link rel="stylesheet" type="text/css" href="../../../css/bootstrap.min.css">
+		<!-- Awesome font icons -->
+		<link rel="stylesheet" type="text/css" href="../../../css/font-awesome.min.css" media="screen">
+		<!-- Owlcoursel -->
+		<link rel="stylesheet" type="text/css" href="../../../css/owl-coursel/owl.carousel.css">
+		<link rel="stylesheet" type="text/css" href="../../../css/owl-coursel/owl.transitions.css">
+		<!-- Magnific-popup -->
+		<link rel="stylesheet" type="text/css" href="../../../css/magnific-popup/magnific-popup.css">
+		<!-- Style -->
+		<link rel="stylesheet" type="text/css" href="../../../css/style.css" media="screen">
+		<!-- Fw -->
+		<link rel="stylesheet" type="text/css" href="../../../css/fw.css" media="screen">
+		</head>
+
+	<body>
+		<div class="preloader">
+			<i class="fa fa-spinner"></i>
+		</div>
+		<header th:replace="templates/head :: header"></header>
+		<div class="heading-inner-page">
+			<div class="container">
+				<h2>登录</h2>
+				<ul class="breadcrumb">
+					<li><a href="/index">首页</a></li>
+					<li>登录</li>
+				</ul>
+			</div>
+		</div>
+		<!-- 登录页面 -->
+		<div class="m-t-60">
+			<div class="container">
+				<div class="bg-img-2 position-left">
+					<div class="row">
+						<div class="col-sm-6 col-sm-offset-3">
+							<div class="box p-40 p-xs-20 bg-white">
+									<div class="form-group">
+										<label class="control-label" for="emailOrNumber">邮箱地址 或 电话号码</label>
+										<input type="text" name="emailOrNumber" value="" placeholder="请输入邮箱地址或者电话号码" id="emailOrNumber" class="form-control form-item">
+									</div>
+									<div class="form-group m-t-30">
+										<label class="control-label" for="password">密码</label>
+										<input type="password" name="password" value="" placeholder="请输入您的密码" id="password" class="form-control form-item">
+										<a class="m-b-30" href="/forgetPassword">忘记密码</a>
+									</div>
+								<button  type="button"  onclick="loginSubmit()" class="btn-primary radius btn ht-btn bg-6 btn_login" >登录</button>
+								<a href="/register"><button  class="btn-primary radius btn ht-btn bg-6 btn_login" >注册</button></a>
+							</div>
+						</div>
+					 </div>
+				 </div>
+			</div>
+		</div>
+		<div th:replace="templates/footer :: footers"></div>
+	</body>
+	<!-- jQuery -->
+	<script src="../../../js/jquery/jquery-2.2.4.min.js"></script>
+	<!-- JqueryUI -->
+	<script src="../../../js/jquery/jquery-ui.js"></script>
+	<!-- Bootstrap -->
+	<script src="../../../js/bootstrap/bootstrap.min.js"></script>
+	<!-- Owl-coursel -->
+	<script src="../../../js/owl-coursel/owl.carousel.js"></script>
+	<!-- Magnific-popup -->
+	<script src="../../../js/magnific-popup/jquery.magnific-popup.min.js"></script>
+	<!-- Script -->
+	<script src="../../../js/script.js"></script>
+	<script src="../../../js/alter.js"></script>
+		<script>
+		function loginSubmit() {
+			let emailOrNumber = $("#emailOrNumber").val();
+			let password = $("#password").val();
+			console.log(emailOrNumber);
+			console.log(password);
+			var checkemailOrNumber = emailOrNumber.replace(/(^\s*)|(\s*$)/g, '');
+			var checkPassword = password.replace(/(^\s*)|(\s*$)/g, '');
+			if(checkemailOrNumber==''||checkemailOrNumber==null||checkPassword==''||checkPassword==null	){
+				alert("你输入的用户名或密码为空，请重新输入")
+				return;
+			}
+			$.post("user/login",{emailOrNumber:checkemailOrNumber,password:checkPassword},function (data) {
+				if (data===null){
+					alert("账户或密码错误");
+				}
+				if (data.stateCode===200){
+					if(data.data.u_id > 0){
+						alert("登陆成功")
+						window.location.href = "/index"
+					}
+				}else{
+					alert("账户或密码错误");
+				}
+			},"json")
+		}
+		$(".search").on('click',function () {
+			var val = $(".form-item").val();
+			var str = val.replace(/(^\s*)|(\s*$)/g, '')
+			if (str===null||str===''){
+				alert("请输入你要搜索的信息")
+			}else {
+				console.log(val)
+				window.location.href="/search?text="+str
+			}
+		})
+		</script>
+</html>
+

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8">
+		<title>后台管理登录</title>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+		 crossorigin="anonymous">
+		<!-- jQuery -->
+		<script type="application/javascript" src="../../../js/jquery/jquery-2.2.4.min.js"></script>
+		<script src="../../../js/alter.js"></script>
+		<style>
+			/* 样式 */
+			#box #middle .mid .text2 {
+				font-family: 幼圆;
+			}
+			html{
+				height: 100%;
+			}
+			body {
+				overflow: hidden;
+				background: url(../../../images/bg.jpg) no-repeat;
+				background-size: cover;
+			}
+			#box {
+				width: 100%;
+				height: auto;
+			}
+			.nav-link{
+				color: white;
+			}
+			.nav-link:hover{
+				color: #818182;
+			}
+			.text2{
+				font-size:500%;
+				font-family:verdana;
+				opacity: 0.7;
+				user-select: none;
+
+			}
+			/* #middle{display: none;} */
+		</style>
+		<style>
+			/* 动画 */
+			@-webkit-keyframes slideInDown{
+				from{
+					-webkit-transform: translate3d(0,-100%,0);
+					visibility: visible;
+					opacity: 0;
+				}
+				to{
+					-webkit-transform: translate3d(0,0,0);
+					opacity: 1;
+				}
+			}
+			#dao{
+				-webkit-animation: slideInDown 2s;
+			}
+			@-webkit-keyframes FadeIn{
+				from{opacity: 0;}
+				to{opacity: 1;}
+			}
+			@-webkit-keyframes FadeIn2{
+				from{opacity: 0.4;}
+				to{opacity: 1;}
+			}
+			body{
+				-webkit-animation: FadeIn 2s;
+			}
+
+        </style>
+		<style>
+			/* 登录框 */
+			#LoginK{
+				width: 15%;
+				height: 10%;
+				position: absolute;
+				left: 43%;
+				top: 40%;
+				opacity: 1;
+
+			}
+			.form-group:hover{
+				-webkit-animation: FadeIn2 1.5s;
+				opacity: 1;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box">
+			<nav id="dao" class="navbar navbar-expand-lg navbar-transparent navbar-fixed-top" role="navigation">
+				<a class="navbar-brand" style="color: white; font-family: 幼圆; user-select: none;">
+					<img src="../../../images/logo.png" class="d-inline-block align-top" alt="">
+				</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+				 aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarNav">
+					<ul class="navbar-nav">
+						<li class="nav-item active">
+							<a class="nav-link" href="/index">返回商城主页<span class="sr-only">(current)</span></a>
+						</li>
+						<li style="position: absolute; right: 5%;" class="nav-item">
+							<a class="nav-link" href="../user/login.html" aria-disabled="true">
+								<svg class="bi bi-person-plus" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+									<path fill-rule="evenodd" d="M11 14s1 0 1-1-1-4-6-4-6 3-6 4 1 1 1 1h10zm-9.995-.944v-.002.002zM1.022 13h9.956a.274.274 0 0 0 .014-.002l.008-.002c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664a1.05 1.05 0 0 0 .022.004zm9.974.056v-.002.002zM6 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4zm3-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0zm4.5 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"
+									 clip-rule="evenodd" />
+									<path fill-rule="evenodd" d="M13 7.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0v-2z" clip-rule="evenodd" />
+								</svg>
+								回到 登录/注册
+							</a>
+						</li>
+					</ul>
+				</div>
+			</nav>
+			<!-- 欢迎页面 -->
+			<div id="middle">
+				<div align="center" class="mid">
+					<br />
+					<p style="color: #242436;" class="text2">后台管理页面</p>
+					<br />
+				</div>
+			</div>
+			<!-- 登录框 -->
+			<div id="LoginK">
+				  <div class="form-group">
+				    <label style="font-size: 24px; font-family: 幼圆; user-select: none;" for="AdminUsername">账号</label>
+				    <input type="text" class="form-control" id="AdminUsername" aria-describedby="emailHelp" name="a_username">
+				    <small id="emailHelp" class="form-text text-muted">仅限于管理员登录</small>
+				  </div>
+				  <div class="form-group">
+				    <label style="font-size: 24px; font-family: 幼圆;user-select: none;" for="AdminPassword">密码</label>
+				    <input type="password" class="form-control" id="AdminPassword" name="a_password">
+				  </div>
+					<button class="btn btn-outline-secondary form-control" onclick="loginIN()">登录</button>
+			</div>
+		</div>
+	</body>
+	<script>
+		function loginIN(){
+			var username = $("#AdminUsername").val();
+			var password = $("#AdminPassword").val();
+			console.log(username)
+			console.log(password)
+			var checkUsername = username.replace(/(^\s*)|(\s*$)/g, '');
+			var checkPassword = password.replace(/(^\s*)|(\s*$)/g, '');
+			if(checkUsername==''||checkUsername==null||checkPassword==''||checkPassword==null	){
+				alert("你输入的用户名或密码为空，请重新输入")
+				return;
+			}else {
+				$.post("/adminLogin/login",{username:checkUsername,password:checkPassword},function (data) {
+					if (data===null){
+						alert("账户或密码错误");
+					}
+					if (data.stateCode===200){
+						alert("登陆成功")
+						window.location.href = '/admin/control'
+					}else{
+						alert("账户或密码错误");
+					}
+				},"json")
+			}
+		}
+	</script>
+</html>

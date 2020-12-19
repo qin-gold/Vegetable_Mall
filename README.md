@@ -19,3 +19,10 @@
        添加新的商品功能
        修改商品的功能（商品名称，库存，商品描述，类型，是否热卖）
        处理订单功能（付款，发货，禁用）
+# 默认用户
+   ## 1.Admin 
+      usernam=qsj
+      password=123
+   ## 2.User
+      username=qsj
+      password=qwe123

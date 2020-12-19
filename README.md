@@ -2,7 +2,7 @@
 # 简单介绍
 本项目使用Spring+SpringMVC+Mybatis+thymeleaf来实现了一个网上商城系统，可以使用maven构建为war包进行部署，也可部署在Tomcat中运行。
 # 开发环境
-      jdk 1.8,mysql 5.7.26,window 10 1903,idea 2020.1
+      jdk 1.8, mysql 5.7.26, window 10 1903, idea 2020.1
 # 本地开发运行部署
       环境准备：
       idea、mysql

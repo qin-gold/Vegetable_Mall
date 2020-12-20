@@ -119,13 +119,13 @@ public class OrderServiceImpl implements OrderService {
         orders.setO_id(orderNo);
         orders.setCreate_time(new Timestamp(System.currentTimeMillis()));
             User user = userMapper.findUserById(orders.getU_id());
-            if (orders.getUsername()==null||("").equals(orders.getUsername())||orders.getUsername().length()==0){
+            if (orders.getUsername().equals(null)||("").equals(orders.getUsername())||orders.getUsername().length()==0){
                 orders.setUsername(user.getU_name());
             }
-            if (orders.getAddress()==null||("").equals(orders.getAddress())||orders.getAddress().length()==0){
+            if (orders.getAddress().equals(null)||("").equals(orders.getAddress())||orders.getAddress().length()==0){
                 orders.setAddress(user.getAddress());
             }
-            if (orders.getTelephone()==null||("").equals(orders.getTelephone())||orders.getTelephone().length()==0){
+            if (orders.getTelephone().equals(null)||("").equals(orders.getTelephone())||orders.getTelephone().length()==0){
                 orders.setTelephone(user.getPhone());
             }
             orders.setPaystate(0);

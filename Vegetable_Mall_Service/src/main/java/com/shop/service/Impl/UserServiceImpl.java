@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findUserById(int u_id) throws Exception {
+    public User findUserById(String u_id) throws Exception {
         return iUserMapper.findUserById(u_id);
     }
 
@@ -107,19 +107,46 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Result updateUser0(String u_id) {
+        Result result=new Result();
+        try {
+            int i = iUserMapper.updateUser0(u_id);
+            if (i>=1){
+                result.setStateCode(200);
+            }else {
+                result.setStateCode(500);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    @Override
+    public Result updateUser1(String u_id) {
+        Result result=new Result();
+        try {
+            int i = iUserMapper.updateUser1(u_id);
+            if (i>=1){
+                result.setStateCode(200);
+            }else {
+                result.setStateCode(500);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    @Override
     @Transactional
     public Result updateUserPassword(User user) throws Exception {
         Result result = new Result();
         int code = iUserMapper.updatePassword(user);
         if (code>=1){
-            System.out.println("密码更新成功");
-            result.setMsg("密码重置成功");
             result.setStateCode(200);
-            result.setData(true);
         }else {
-            result.setData(false);
             result.setStateCode(400);
-            System.out.println("密码更新失败");
         }
         return result;
     }

@@ -141,15 +141,13 @@
 		function loginIN(){
 			var username = $("#AdminUsername").val();
 			var password = $("#AdminPassword").val();
-			console.log(username)
-			console.log(password)
 			var checkUsername = username.replace(/(^\s*)|(\s*$)/g, '');
 			var checkPassword = password.replace(/(^\s*)|(\s*$)/g, '');
 			if(checkUsername==''||checkUsername==null||checkPassword==''||checkPassword==null	){
 				alert("你输入的用户名或密码为空，请重新输入")
 				return;
 			}else {
-				$.post("/adminLogin/login",{username:checkUsername,password:checkPassword},function (data) {
+				$.post("/adminLogin/AdminLogin",{a_username:checkUsername,a_password:checkPassword},function (data) {
 					if (data===null){
 						alert("账户或密码错误");
 					}

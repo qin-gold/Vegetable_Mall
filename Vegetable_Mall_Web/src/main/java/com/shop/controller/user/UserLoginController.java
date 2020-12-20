@@ -32,7 +32,6 @@ public class UserLoginController {
         Result result=new Result();
         if (request==null){
             result.setStateCode(404);
-            result.setMsg("不能输入为空");
             model.addAttribute("result",result);
             return result;
         }
@@ -44,7 +43,6 @@ public class UserLoginController {
         user.setU_password(u_password);
         try {
              result = loginService.loginIn(user);
-             model.addAttribute("result",result);
              session.setAttribute("user",result.getData());
         } catch (Exception e) {
             e.printStackTrace();

@@ -57,7 +57,6 @@ public class CheckController {
     public Result checkNumberExist(@RequestBody JSONObject jsonObject, Result result) throws Exception{
         String phone = jsonObject.getString("phone");
         result = userService.findUserByPhone(phone);
-        System.out.println(result);
         return result;
     }
 

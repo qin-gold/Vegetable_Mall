@@ -34,7 +34,6 @@ public class UserInformation {
     @ResponseBody
     @RequestMapping("/updateUser")
     public Result updateUser(Result result, HttpSession session, User user){
-        System.out.println(user);
         User userDate = (User)session.getAttribute("user");
         user.setU_id(userDate.getU_id());
         try {

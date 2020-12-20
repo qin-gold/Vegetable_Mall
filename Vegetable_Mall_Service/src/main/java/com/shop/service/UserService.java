@@ -31,7 +31,7 @@ public interface UserService {
      * @return
      * @throws Exception
      */
-    User findUserById(int u_id) throws Exception;
+    User findUserById(String u_id) throws Exception;
 
     /** 通过用户名查询用户
      * @param u_name
@@ -76,4 +76,18 @@ public interface UserService {
      * @throws Exception
      */
     Result findUserByPhone(String number);
+
+    /** 修改用户状态0
+     * @param number
+     * @return
+     * @throws Exception
+     */
+    Result updateUser0(String number);
+
+    /** 修改用户状态1
+     * @param number
+     * @return
+     * @throws Exception
+     */
+    Result updateUser1(String number);
 }

@@ -5,6 +5,7 @@ import com.shop.mapper.IUserMapper;
 import com.shop.service.LoginService;
 import com.shop.domain.Result;
 import com.shop.utils.MD5;
+import com.shop.utils.UserUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,12 +28,15 @@ public class LoginServiceImpl implements LoginService {
         userData.setU_password(md5);
         User user = iUserMapper.findUserByEmail(userData);
         if (user == null){
-            result.setData(null);
             result.setStateCode(404);
             return result;
         }
         if (!user.getU_password().equals(userData.getU_password())){
             result.setStateCode(404);
+            return result;
+        }
+        if (Integer.valueOf(user.getState())==1){
+            result.setStateCode(502);
             return result;
         }
         result.setStateCode(200);
@@ -52,6 +56,8 @@ public class LoginServiceImpl implements LoginService {
         }
         String md5 = MD5.ToMD5(user.getU_password());
         user.setU_password(md5);
+        String u_id = UserUtil.UserU_id();
+        user.setU_id(u_id);
         int i= 0;
         try {
             i = iUserMapper.saveUser(user);

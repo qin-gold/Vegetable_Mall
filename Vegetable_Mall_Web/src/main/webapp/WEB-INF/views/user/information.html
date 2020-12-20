@@ -96,7 +96,7 @@
 					alert("你输入的用户数据不完整，请重新输入")
 					return;
 				}
-				$.post("/user/updateUser",{u_name:checkUsername,phone:checkPhone,address:checkAddress,gender:gender},function (data) {
+				$.post("/loginBefore/updateUser",{u_name:checkUsername,phone:checkPhone,address:checkAddress,gender:gender},function (data) {
 					if (data===null){
 						alert("修改失败");
 					}

@@ -36,7 +36,7 @@ public interface OrderService {
      * @return
      * @throws Exception
      */
-    List<Orders> findAllOrdersById(Integer id,int pageNum,int PageSize) throws Exception;
+    List<Orders> findAllOrdersById(String id,int pageNum,int PageSize) throws Exception;
 
     /**  用户模糊查询所有
      * @param orders

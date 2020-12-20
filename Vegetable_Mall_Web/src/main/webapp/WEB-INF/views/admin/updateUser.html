@@ -58,29 +58,38 @@
         let address = $("#address").val();
         let email = $("#email").val();
         let gender = $('input[name=gender]:checked').val();
-        console.log(u_name,phone,address,email,gender)
-        $.ajax({
-            type: 'post',
-            dataType: 'json',
-            contentType: 'application/json;charset=utf-8',
-            url: '/admin/updateUser',
-            data: JSON.stringify({
-                u_name: u_name,
-                phone: phone,
-                address: address,
-                email: email,
-                gender: gender
-            }),
-            success: function (data) {
-                if (data.stateCode === 200) {
-
-                    alert("修改成功")
-                } else {
-                    alert(data.stateCode)
-                    alert("修改失败")
-                }
+        $.post('/admin/updateUser',{u_name: u_name, phone: phone, address: address, email: email, gender: gender},function (data) {
+            if (data.stateCode===null){
+                alert("修改失败")
+            }
+            if (data.stateCode === 200) {
+                alert("修改成功")
+            } else {
+                alert("修改失败")
             }
         })
+        // $.ajax({
+        //     type: 'post',
+        //     dataType: 'json',
+        //     contentType: 'application/json;charset=utf-8',
+        //     url: '/admin/updateUser',
+        //     data: JSON.stringify({
+        //         u_name: u_name,
+        //         phone: phone,
+        //         address: address,
+        //         email: email,
+        //         gender: gender
+        //     }),
+        //     success: function (data) {
+        //         if (data.stateCode === 200) {
+        //
+        //             alert("修改成功")
+        //         } else {
+        //             alert(data.stateCode)
+        //             alert("修改失败")
+        //         }
+        //     }
+        // })
     }
 
     function back() {

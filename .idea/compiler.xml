@@ -6,10 +6,10 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="Vegetable_Mall_Dao" />
+        <module name="Vegetable_Mall_Service" />
         <module name="Vegetable_Mall_Web" />
         <module name="Vegetable_Mall_Utils" />
-        <module name="Vegetable_Mall_Service" />
+        <module name="Vegetable_Mall_Dao" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="8" />

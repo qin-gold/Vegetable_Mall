@@ -19,7 +19,7 @@ public class ShopCartServiceImpl implements ShopCartService {
     private IShopCartMapper shopCartMapper;
 
     @Override
-    public List<ShopCart> findProductByuId(Integer u_id) {
+    public List<ShopCart> findProductByuId(String u_id) {
         try {
             List<ShopCart> cartList = shopCartMapper.findProductByu_idf(u_id);
             return cartList;
@@ -30,7 +30,7 @@ public class ShopCartServiceImpl implements ShopCartService {
     }
 
     @Override
-    public List<ShopCart> findProductByuIdAndPid(Integer u_id, Integer[] p_id) {
+    public List<ShopCart> findProductByuIdAndPid(String u_id, Integer[] p_id) {
         List<ShopCart> shopCartList=new ArrayList<>();
         ShopCart shopCart=null;
         try {
@@ -46,7 +46,7 @@ public class ShopCartServiceImpl implements ShopCartService {
     }
 
     @Override
-    public Result EmptyShopCartByuId(Integer u_id) {
+    public Result EmptyShopCartByuId(String u_id) {
         Result result=new Result();
         try {
             Integer integer=0;
@@ -129,7 +129,7 @@ public class ShopCartServiceImpl implements ShopCartService {
     }
 
     @Override
-    public Integer findProductTotal(Integer u_id) {
+    public Integer findProductTotal(String u_id) {
         try {
             Integer total = shopCartMapper.findProductTotal(u_id);
             return total;

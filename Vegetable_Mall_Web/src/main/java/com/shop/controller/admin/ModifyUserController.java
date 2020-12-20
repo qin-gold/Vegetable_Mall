@@ -27,13 +27,12 @@ public class ModifyUserController {
 
     @ResponseBody
     @RequestMapping("/updateUser")
-    public Result updateUser(@RequestBody JSONObject jsonObject,User user,Result result) {
+    public Result updateUser(User user,Result result) {
         try {
-            user.setU_name(jsonObject.getString("u_name"));
-            user.setGender(jsonObject.getString("gender"));
-            user.setPhone(jsonObject.getString("phone"));
-            user.setAddress(jsonObject.getString("address"));
-            user.setEmail(jsonObject.getString("email"));
+            if (user==null){
+                result.setStateCode(404);
+                return result;
+            }
             result = userService.updateUser(user);
         } catch (Exception e) {
             e.printStackTrace();
@@ -73,6 +72,7 @@ public class ModifyUserController {
             findAllUser(model,page,size);
             return "admin/productControl";
         }
+            user.setPhone(text);
             user.setU_name(text);
             user.setEmail(text);
             user.setAddress(text);
@@ -84,5 +84,27 @@ public class ModifyUserController {
             e.printStackTrace();
         }
         return "admin/userControl";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/delUser0",params = "u_id")
+    public Result delUser0(User user,Result result) {
+        try {
+             result = userService.updateUser0(user.getU_id());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/delUser1",params = "u_id")
+    public Result delUser1(Result result,User user) {
+        try {
+            result = userService.updateUser1(user.getU_id());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 }

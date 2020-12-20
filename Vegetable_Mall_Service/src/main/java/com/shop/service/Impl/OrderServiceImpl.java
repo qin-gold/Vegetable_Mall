@@ -31,7 +31,7 @@ public class OrderServiceImpl implements OrderService {
     private IProductMapper iProductMapper;
 
     @Override
-    public List<Orders> findAllOrdersById(Integer id,int pageNum,int PageSize) throws Exception {
+    public List<Orders> findAllOrdersById(String id,int pageNum,int PageSize) throws Exception {
         PageHelper.startPage(pageNum,PageSize);
         List<Orders> list = iOrderMapper.findAllOrdersById(id);
         if (list==null){

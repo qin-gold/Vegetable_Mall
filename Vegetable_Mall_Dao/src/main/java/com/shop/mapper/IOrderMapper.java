@@ -30,7 +30,7 @@ public interface IOrderMapper {
      */
     @Select("select * from orders where u_id = #{u_id} and state=0 order by o_id Desc")
     @ResultMap("map")
-    List<Orders> findAllOrdersById(Integer id) throws Exception;
+    List<Orders> findAllOrdersById(String id) throws Exception;
 
     /** 根据订单id查询订单
      * @param ordersId

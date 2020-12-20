@@ -6,7 +6,7 @@ package com.shop.domain;
  * @date 2020/11/6
  */
 public class User {
-    private Integer u_id;
+    private String u_id;
     private String u_name;
     private String u_password;
     private String gender;
@@ -16,11 +16,11 @@ public class User {
     private String email;
     private String state;
 
-    public Integer getU_id() {
+    public String getU_id() {
         return u_id;
     }
 
-    public void setU_id(Integer u_id) {
+    public void setU_id(String u_id) {
         this.u_id = u_id;
     }
 

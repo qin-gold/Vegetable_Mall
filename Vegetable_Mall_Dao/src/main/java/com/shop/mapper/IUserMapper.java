@@ -34,7 +34,7 @@ public interface IUserMapper {
      * @return
      * @throws Exception
      */
-    @Insert("insert into user(u_name,u_password,gender,phone,address,email) value(#{u_name},#{u_password},#{gender},#{phone},#{address},#{email})")
+    @Insert("insert into user(u_id,u_name,u_password,gender,phone,address,email) value(#{u_id},#{u_name},#{u_password},#{gender},#{phone},#{address},#{email})")
     int saveUser(User user) throws Exception;
 
     /** 根据id查询用户
@@ -43,8 +43,7 @@ public interface IUserMapper {
      * @throws Exception
      */
     @Select("select * from user where u_id=#{u_id} and state=0")
-    User findUserById(Integer u_id) throws Exception;
-
+    User findUserById(String u_id) throws Exception;
 
     /** 更新用户信息
      * @param userData
@@ -67,7 +66,7 @@ public interface IUserMapper {
      * @return
      * @throws Exception
      */
-    @Select("select * from user where email=#{email} or phone=#{phone} and state=0")
+    @Select("select * from user where email=#{email} or phone=#{phone}")
     User findUserByEmail(User user) throws Exception;
 
     /** 根据手机查找用户
@@ -75,7 +74,7 @@ public interface IUserMapper {
      * @return
      * @throws Exception
      */
-    @Select("select * from user where phone=#{phone} and state=0")
+    @Select("select count(phone) from user where phone=#{phone}")
     int findUserByPhone(String user) throws Exception;
 
     /** 更新用户密码
@@ -86,12 +85,28 @@ public interface IUserMapper {
     @Update("update user set u_password=#{u_password} where email=#{email} and state=0")
     int updatePassword(User user) throws Exception;
 
+    /** 更新用户状态0
+     * @param u_id
+     * @return
+     * @throws Exception
+     */
+    @Update("update user set state=0 where u_id=#{u_id}")
+    int updateUser0(String u_id) throws Exception;
+
+    /** 更新用户状态1
+     * @param u_id
+     * @return
+     * @throws Exception
+     */
+    @Update("update user set state=1 where u_id=#{u_id}")
+    int updateUser1(String u_id) throws Exception;
+
     /** 模糊查询用户
      * @return
      * @throws Exception
      * @param user
      */
-    @Select("select * from user where u_name like concat('%',#{u_name},'%') or address like concat('%',#{address},'%') or email like concat('%',#{email},'%') ")
+    @Select("select * from user where phone like concat('%',#{phone},'%') or u_name like concat('%',#{u_name},'%') or address like concat('%',#{address},'%') or email like concat('%',#{email},'%') ")
     List<User> findLikeProduct(User user) throws Exception;
 }
 

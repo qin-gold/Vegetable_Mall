@@ -19,18 +19,14 @@ public class AdminServiceImpl implements AdminService {
         Result result=new Result();
         try {
             Admin admin = iAdminMapper.login(adminDate);
-            if (!adminDate.getA_password().equals(admin.getA_password())){
-                result.setMsg("密码错误");
+            if (admin.getA_password()==null){
                 result.setStateCode(404);
-                return result;
+            }else {
+                result.setStateCode(200);
+                result.setData(admin);
             }
-            result.setData(admin);
-            result.setStateCode(200);
-            result.setMsg("登录成功");
             return result;
         } catch (Exception e) {
-            e.printStackTrace();
-            result.setMsg("用户名不存在");
             result.setStateCode(404);
             return result;
         }

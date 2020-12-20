@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class ShopCart implements Serializable {
     private Integer sc_id;
     private Integer p_count;
-    private Integer u_id;
+    private String u_id;
     private Integer p_id;
     private Product product;
 
@@ -28,11 +28,11 @@ public class ShopCart implements Serializable {
         this.p_count = p_count;
     }
 
-    public Integer getU_id() {
+    public String getU_id() {
         return u_id;
     }
 
-    public void setU_id(Integer u_id) {
+    public void setU_id(String u_id) {
         this.u_id = u_id;
     }
 

@@ -12,15 +12,22 @@ import java.util.Properties;
  */
 public class EmailUtil {
     public String EmailPort(String UserEmail)  {
-        String code = RandomUtil.getRandom();
+        String code = EmailCodeUtil.getRandom();
         Properties properties=new Properties();
+        InputStream resourceAsStream = null;
         try {
             // 通过输入缓冲流进行读取配置文件
-            InputStream resourceAsStream = EmailUtil.class.getClassLoader().getResourceAsStream("email.properties");
+             resourceAsStream = EmailUtil.class.getClassLoader().getResourceAsStream("email.properties");
             // 加载输入流
             properties.load(resourceAsStream);
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            try {
+                resourceAsStream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         //创建一个htmlEmail实例
         HtmlEmail email=new HtmlEmail();

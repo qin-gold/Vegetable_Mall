@@ -29,36 +29,28 @@ public class AdminLoginController {
         return "admin/bgControl";
     }
 
-    /**
-     * 登录方法
+    /** 管理员登录方法
      * @param model
-     * @param request
+     * @param result
+     * @param admin
+     * @param session
      * @return
      */
     @ResponseBody
-    @RequestMapping("/login")
-    public Result adminLogin(Model model, HttpServletRequest request, HttpSession session) {
-        Result result = new Result();
-        if (request == null) {
+    @RequestMapping("/AdminLogin")
+    public Result adminLogin(Model model,Result result, Admin admin, HttpSession session) {
+        if (admin == null) {
             result.setStateCode(404);
-            result.setMsg("不能输入为空");
             model.addAttribute("result", result);
             return result;
         }
-        Admin admin = new Admin();
-        String username = request.getParameter("username");
-        String password = request.getParameter("password");
-        admin.setA_username(username);
-        admin.setA_password(password);
         result = adminService.login(admin);
         session.setAttribute("admin", result.getData());
-        Object attribute = session.getAttribute("admin");
         model.addAttribute("result", result);
         return result;
     }
 
-    /**
-     * 注销方法
+    /** 管理员注销方法
      * @param session
      * @return
      */

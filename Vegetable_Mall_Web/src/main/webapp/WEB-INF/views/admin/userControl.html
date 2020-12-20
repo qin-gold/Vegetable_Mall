@@ -47,6 +47,7 @@
                                     <th>联系方式</th>
                                     <th>收货地址</th>
                                     <th>邮箱</th>
+                                    <th>状态</th>
                                     <th>操作用户</th>
                                 </tr>
                                 <tr th:each="User:${list.list}">
@@ -54,10 +55,16 @@
                                     <td th:text="${User.u_name}"></td>
                                     <td th:text="${User.gender}"></td>
                                     <td th:text="${User.phone}"></td>
-                                    <td th:text="${User.address}"></td>
+                                    <td>
+                                        <textarea th:text="${User.address}" readonly></textarea>
+                                    </td>
                                     <td th:text="${User.email}"></td>
+                                    <td th:if="${User.state}==1">封禁中</td>
+                                    <td th:if="${User.state}==0">正常</td>
                                     <td>
                                         <button  class="btn btn-primary update" >修改用户信息</button>
+                                        <button  th:if="${User.state}==1" class= 'btn btn-primary del0' >启用</button>
+                                        <button  th:if="${User.state}==0" class= 'btn btn-primary del1' >禁用</button>
                                     </td>
                                 </tr>
                             </table>
@@ -103,6 +110,37 @@
         window.location.href="/admin/findLikeUser?text="+str
 
     }
+    $(".del0").on('click',function () {
+        var u_id=$(this).parents("tr").find("#u_id").text();
+        let confirm = window.confirm("你是否要修改用户的状态");
+        if (confirm) {
+            $.post('/admin/delUser0',{u_id:u_id},function (data) {
+                if (data.stateCode==200){
+                    alert("修改成功")
+                    window.location.href=window.location.href
+                }else {
+                    alert("修改失败")
+                }
+            })
+        }
+    })
+
+    $(".del1").on('click',function () {
+        var u_id=$(this).parents("tr").find("#u_id").text();
+        let confirm = window.confirm("你是否要修改用户的状态");
+        if (confirm) {
+            if (confirm) {
+                $.post('/admin/delUser1',{u_id:u_id},function (data) {
+                    if (data.stateCode==200){
+                        alert("修改成功")
+                        window.location.href=window.location.href
+                    }else {
+                        alert("修改失败")
+                    }
+                })
+            }
+        }
+    })
 
     function bgControl() {
         window.location.href="/admin/control"

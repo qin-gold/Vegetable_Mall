@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class Orders implements Serializable {
     private String o_id;
-    private int u_id;
+    private String u_id;
     private float totalmoney;
     private String username;
     private String address;
@@ -30,11 +30,11 @@ public class Orders implements Serializable {
         this.o_id = o_id;
     }
 
-    public int getU_id() {
+    public String getU_id() {
         return u_id;
     }
 
-    public void setU_id(int u_id) {
+    public void setU_id(String u_id) {
         this.u_id = u_id;
     }
 

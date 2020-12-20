@@ -16,14 +16,14 @@ public interface ShopCartService {
      * @param u_id
      * @return
      */
-    List<ShopCart> findProductByuId(Integer u_id);
+    List<ShopCart> findProductByuId(String u_id);
 
     /**根据用户id和商品id查找购物车
      * @param u_id
      * @param p_id
      * @return
      */
-    List<ShopCart> findProductByuIdAndPid(Integer u_id,Integer[] p_id);
+    List<ShopCart> findProductByuIdAndPid(String u_id,Integer[] p_id);
 
     /** 添加商品到购物车
      * @param shopCart
@@ -47,11 +47,11 @@ public interface ShopCartService {
      * @param u_id
      * @return
      */
-    Integer findProductTotal(Integer u_id);
+    Integer findProductTotal(String u_id);
 
     /** 清空购物车中的商品
      * @param u_id
      * @return
      */
-    Result EmptyShopCartByuId(Integer u_id);
+    Result EmptyShopCartByuId(String u_id);
 }

@@ -28,7 +28,7 @@ public interface IShopCartMapper {
                     many = @Many(select = "com.shop.mapper.IShopCartMapper.findProductBySc_id"))
             }
     )
-    List<ShopCart> findProductByu_idf(Integer u_id)throws Exception;
+    List<ShopCart> findProductByu_idf(String u_id)throws Exception;
 
     /** 根据用户id和p_id查询数据
      * @param u_id
@@ -45,7 +45,7 @@ public interface IShopCartMapper {
                     one = @One(select = "com.shop.mapper.IShopCartMapper.findProductBySc_id"))
     }
     )
-    ShopCart findProductByu_idp_id(Integer u_id,Integer p_id)throws Exception;
+    ShopCart findProductByu_idp_id(String u_id,Integer p_id)throws Exception;
 
     /** 根据购物车Id寻找商品
      * @param p_id
@@ -60,7 +60,7 @@ public interface IShopCartMapper {
      * @throws Exception
      */
     @Select("Select p_id from shop_cart where u_id=#{u_id}")
-    List<ShopCart> findProductByu_idj(Integer u_id)throws Exception;
+    List<ShopCart> findProductByu_idj(String u_id)throws Exception;
 
     /** 添加商品到购物车
      * @param shopCart
@@ -100,6 +100,6 @@ public interface IShopCartMapper {
      * @throws Exception
      */
     @Select("select Count(sc_id) from shop_cart WHERE u_id=#{u_id}")
-    Integer findProductTotal(Integer u_id)throws Exception;
+    Integer findProductTotal(String u_id)throws Exception;
 
 }

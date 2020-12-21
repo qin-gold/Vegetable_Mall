@@ -80,13 +80,13 @@
                                 </div>
                                 <div class="btn-group btn-group-lg">
                                     <ul class="pagination">
-                                        <li><a  class="btn-group btn-group-justified" role="group" href="/admin/findAllProduct?size=5&page=1" aria-label="Previous">首页</a></li>
-                                        <li><a th:href="@{'/admin/findAllProduct?size=5&page='+${list.pageNum-1}}">上一页</a></li>
+                                        <li><a  class="btn-group btn-group-justified" role="group" th:href="@{'/admin/'+${str}+'?page='+${list.navigateFirstPage}+'&text='+${text}}" aria-label="Previous">首页</a></li>
+                                        <li><a th:href="@{'/admin/'+${str}+'?page='+${list.pageNum-1}+'&text='+${text}}">上一页</a></li>
                                         <li th:each="pr:${list.navigatepageNums}">
-                                            <a th:href="@{'/admin/findAllProduct?size=5&page='+${pr}}" th:text="${pr}"></a>
+                                            <a th:href="@{'/admin/'+${str}+'?page='+${pr}+'&text='+${text}}" th:text="${pr}"></a>
                                         </li>
-                                        <li><a th:href="@{'/admin/findAllProduct?size=5&page='+${list.pageNum+1}}">下一页</a></li>
-                                        <li><a th:href="@{'/admin/findAllProduct?size=5&page='+${list.pages}}" aria-label="Next">尾页</a></li>
+                                        <li><a th:href="@{'/admin/'+${str}+'?page='+${list.pageNum+1}+'&text='+${text}}">下一页</a></li>
+                                        <li><a th:href="@{'/admin/'+${str}+'?page='+${list.navigateLastPage}+'&text='+${text}}" aria-label="Next">尾页</a></li>
                                     </ul>
                                 </div>
                             </ul>

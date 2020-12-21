@@ -81,7 +81,8 @@ public class ModifyProductController {
             List<Product> productList = productService.adminFindAllProduct(page, size);
             PageInfo<Product> pageInfo = new PageInfo<>(productList);
             model.addAttribute("list", pageInfo);
-
+            String str="findAllProduct";
+            model.addAttribute("str", str);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -94,6 +95,8 @@ public class ModifyProductController {
             List<Product> productList = productService.adminFindHotProduct();
             PageInfo<Product> pageInfo = new PageInfo<>(productList);
             model.addAttribute("list", pageInfo);
+            String str="findHotProduct";
+            model.addAttribute("str", str);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -152,7 +155,10 @@ public class ModifyProductController {
         try {
             List<Product> likeProduct = productService.adminFindLikeProduct(product, page, size);
             PageInfo<Product> pageInfo = new PageInfo<>(likeProduct);
+            String str="findLikeProduct";
+            model.addAttribute("str", str);
             model.addAttribute("list", pageInfo);
+            model.addAttribute("text", text);
         } catch (Exception e) {
             e.printStackTrace();
         }

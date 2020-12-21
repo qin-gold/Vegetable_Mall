@@ -181,6 +181,7 @@ public class PublicConnection {
             List<Product> productByType = productService.findLikeProduct(product,page,size);
             PageInfo<Product> pageInfo=new PageInfo(productByType);
             model.addAttribute("pageInfo",pageInfo);
+            model.addAttribute("text",text);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -135,7 +135,7 @@ public interface IOrderMapper {
      */
     @Select("select * from orders where o_id like concat('%',#{o_id},'%') " +
             "or totalmoney like concat('%',#{totalmoney},'%')" +
-            "or address like concat('%',#{address},'%') ")
+            "or address like concat('%',#{address},'%') order by o_id Desc")
     @ResultMap(value = "map")
     List<Orders> adminFindLikeOrders(Orders orders) throws Exception;
 
@@ -144,10 +144,9 @@ public interface IOrderMapper {
      * @throws Exception
      * @param orders
      */
-    @Select("select * from orders where o_id like concat('%',#{o_id},'%') " +
+    @Select("select * from orders where u_id=#{u_id} and (o_id like concat('%',#{o_id},'%') " +
             "or totalmoney like concat('%',#{totalmoney},'%')" +
-            "or address like concat('%',#{address},'%')" +
-            "and u_id=#{u_id} ")
+            "or address like concat('%',#{address},'%')) order by o_id Desc ")
     @ResultMap(value = "map")
     List<Orders> userFindLikeOrders(Orders orders) throws Exception;
 }

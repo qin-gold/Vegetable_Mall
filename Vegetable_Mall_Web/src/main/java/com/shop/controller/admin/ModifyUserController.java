@@ -58,6 +58,8 @@ public class ModifyUserController {
         try {
             User userById = userService.findUserById(user.getU_id());
             model.addAttribute("User",userById);
+            String str="findAllUser";
+            model.addAttribute("str", str);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -79,7 +81,10 @@ public class ModifyUserController {
         try {
             List<User> likeUser = userService.findLikeUser(user, page, size);
             PageInfo<User> pageInfo=new PageInfo<>(likeUser);
+            String str="findLikeUser";
+            model.addAttribute("str", str);
             model.addAttribute("list",pageInfo);
+            model.addAttribute("text",text);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -36,6 +36,20 @@
 </div>
 <!--主体-->
 <div th:replace="templates/body :: body"/>
+<!--翻页-->
+<ul class="pagination" style="margin:0 0 0 40%">
+	<div class="btn-group btn-group-lg">
+		<ul class="pagination">
+			<li><a class="btn-group" role="group" th:href="@{'/search?page='+${pageInfo.navigateFirstPage}+'&text='+${text}}">首页</a></li>
+			<li><a th:href="@{'/search?page='+${pageInfo.pageNum-1}+'&text='+${text}}">上一页</a></li>
+			<li th:each="pr:${pageInfo.navigatepageNums}">
+				<a th:href="@{'/search?page='+${pr}+'&text='+${text}}" th:text="${pr}"></a>
+			</li>
+			<li><a th:href="@{'/search?page='+${pageInfo.pageNum+1}+'&text='+${text}}">下一页</a></li>
+			<li><a th:href="@{'/search?page='+${pageInfo.navigateLastPage}+'&text='+${text}}" aria-label="Next">尾页</a></li>
+		</ul>
+	</div>
+</ul>
 <!--尾部-->
 <footer th:insert="templates/footer :: footers"></footer>
 

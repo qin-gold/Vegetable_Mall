@@ -94,13 +94,13 @@
     <ul class="pagination">
         <div class="btn-group btn-group-lg" style="margin:0 auto">
             <ul class="pagination">
-                <li><a href="/loginBefore/ordersView?page=1" aria-label="Previous">首页</a></li>
-                <li><a th:href="@{'/loginBefore/ordersView?page='+${list.pageNum-1}}">上一页</a></li>
+                <li><a th:href="@{'/loginBefore/'+${str}+'?page='+${list.navigateFirstPage}+'&text='+${text}}" aria-label="Previous">首页</a></li>
+                <li><a th:href="@{'/loginBefore/'+${str}+'?page='+${list.pageNum-1}+'&text='+${text}}">上一页</a></li>
                 <li th:each="each:${list.navigatepageNums}">
-                    <a th:href="@{'/loginBefore/ordersView?page='+${each}}" th:text="${each}"></a>
+                    <a th:href="@{'/loginBefore/'+${str}+'?page='+${each}+'&text='+${text}}" th:text="${each}"></a>
                 </li>
-                <li><a th:href="@{'/loginBefore/ordersView?page='+${list.pageNum+1}}">下一页</a></li>
-                <li><a th:href="@{'/loginBefore/ordersView?page='+${list.pages}}" aria-label="Next">尾页</a></li>
+                <li><a th:href="@{'/loginBefore/'+${str}+'?page='+${list.pageNum+1}+'&text='+${text}}">下一页</a></li>
+                <li><a th:href="@{'/loginBefore/'+${str}+'?page='+${list.navigateLastPage}+'&text='+${text}}" aria-label="Next">尾页</a></li>
             </ul>
         </div>
     </ul>

@@ -48,7 +48,9 @@ public class LoginBeforeOrders {
         try {
             List<Orders> list = orderService.findAllOrdersById(user.getU_id(),page,size);
             PageInfo<Orders> pageInfo = new PageInfo<>(list);
+            String str="ordersView";
             model.addAttribute("list",pageInfo);
+            model.addAttribute("str", str);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -71,7 +73,10 @@ public class LoginBeforeOrders {
         try {
             List<Orders> list = orderService.userFindLikeOrders(orders, page, size);
             PageInfo<Orders> pageInfo=new PageInfo<>(list);
+            String str="findLikeOrders";
             model.addAttribute("list",pageInfo);
+            model.addAttribute("str", str);
+            model.addAttribute("text", text);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -159,7 +159,7 @@ public interface IProductMapper {
      * @throws Exception
      * @param product
      */
-    @Select("select * from product where p_state = 1 and p_name like concat('%',#{p_name},'%') or p_overview like concat('%',#{p_overview},'%') ")
+    @Select("select * from product where p_state = 1 and (p_name like concat('%',#{p_name},'%') or p_overview like concat('%',#{p_overview},'%')) ")
     @ResultMap(value = "description")
     List<Product> findLikeProduct(Product product) throws Exception;
 

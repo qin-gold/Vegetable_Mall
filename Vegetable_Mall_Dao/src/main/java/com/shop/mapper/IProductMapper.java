@@ -17,7 +17,7 @@ import java.util.List;
  * @author qsj Cotter
  * @date 2020/6/6
  */
-@Repository
+//@Repository
 public interface IProductMapper {
     /** 管理员查询所有的商品
      * @return List集合

@@ -7,6 +7,8 @@ import com.shop.service.UserService;
 import com.shop.domain.EmailCheck;
 import com.shop.domain.Result;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

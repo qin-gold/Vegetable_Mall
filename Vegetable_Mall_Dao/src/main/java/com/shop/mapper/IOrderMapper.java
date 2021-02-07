@@ -13,7 +13,7 @@ import java.util.List;
  * @author qsj Cotter
  * @date 2020/10/6
  */
-@Repository
+//@Repository
 public interface IOrderMapper {
 
     /** 查询所有的订单简

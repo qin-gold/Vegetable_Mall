@@ -12,7 +12,7 @@ import java.util.List;
  * @author qsj Cotter
  * @date 2020/11/6
  */
-@Repository
+//@Repository
 public interface IUserMapper {
     /** 根据用户名查询用户
      * @param username

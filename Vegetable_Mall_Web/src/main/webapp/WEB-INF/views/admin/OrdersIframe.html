@@ -1,58 +1,67 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>orders</title>
-    <script type="application/javascript" src="../../../js/jquery.js"></script>
-    <link rel="stylesheet" type="text/css" href="../../../css/bgControl/bg.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-          crossorigin="anonymous">
+  <meta charset="UTF-8">
+  <title>orders</title>
+  <script type="application/javascript" src="/js/jquery.js"></script>
+  <link rel="stylesheet" type="text/css" href="/css/bgControl/bg.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+        crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="/js/layui/css/layui.css" media="screen">
+  <script src="/js/layui/layui.all.js"></script>
 
 </head>
 <body>
-<div >
-    <table style="background-color:rgba(255,255,255,0.7);border-collapse: collapse;" border="1" class="table table-bordered table-hover" id="trr">
-        <tr>
-            <td colspan="1"  style="line-height: 34px;width: 150px" >订单编号:</td>
-            <td colspan="1"  th:text="${orders.o_id}" style="font-size: 15px;text-align: left;line-height: 34px"></td>
-            <td colspan="1"  style="line-height: 34px">订单时间:</td>
-            <td colspan="1"  th:text="${#dates.format(orders.create_time,'yyyy-MM-dd HH:mm:ss')}" style="font-size: 15px;text-align: left;line-height: 34px"></td>
-            <td colspan="1"  ><button class="btn btn-danger closeBtn" >X</button></td>
-        </tr>
-        <tr>
-            <th  style="text-align: center">商品图片</th>
-            <th  style="text-align: center">商品名称</th>
-            <th  style="text-align: center">商品单价</th>
-            <th  style="text-align: center">商品数量</th>
-            <th  style="text-align: center">小计</th>
-        </tr>
-        <tr th:each="product:${orders.orderDetailsList}" class="test">
-            <td  style="height:100px; width:100px"><img th:src="'/pubimages/'+${product.product.p_image}" alt="image" height="100" width="100"></td>
-            <td  style="line-height: 100px" th:text="${product.product.p_name}"></td>
-            <td  style="line-height: 100px" th:text="'￥'+${product.product.p_price}"></td>
-            <td  style="line-height: 100px" th:text="${product.od_count}"></td>
-            <td  style="line-height: 100px" th:text="'￥'+${product.od_count*product.product.p_price}">
-        </tr>
-        <tr>
-            <td colspan="1" style="line-height: 100px;">
-            <td colspan="1" style="line-height: 100px;font-size:20px;color:red;font-weight:normal;" th:text="'总价:  ￥'+${orders.totalmoney}">
-            <td colspan="2"  style="line-height: 33.3px" >
-                <span th:text="'收货人:'+${orders.username}"></span>
-                <br>
-                <span th:text="'电话:'+${orders.telephone}"></span>
-                <br>
-                <span th:text="'收货地址:'+${orders.address}"></span>
-            </td>
-            <td colspan="1" style="line-height: 100px" th:if="${orders.paystate}!=1">未付款</td>
-            <td colspan="1" style="line-height: 100px" th:if="${orders.paystate==1&&orders.Destate!=1}">未发货</td>
-            <td colspan="1" style="line-height: 100px" th:if="${orders.paystate==1&&orders.Destate==1}">已发货</td>
-        </tr>
-    </table>
+<div>
+  <table style="background-color:rgba(255,255,255,0.7);border-collapse: collapse;" border="1"
+         class="table table-bordered table-hover" id="trr">
+    <tr>
+      <td colspan="1" style="line-height: 34px;width: 150px">订单编号:</td>
+      <td colspan="1" th:text="${orders.o_id}" style="font-size: 15px;text-align: left;line-height: 34px"></td>
+      <td colspan="1" style="line-height: 34px">订单时间:</td>
+      <td colspan="1" th:text="${#dates.format(orders.create_time,'yyyy-MM-dd HH:mm:ss')}"
+          style="font-size: 15px;text-align: left;line-height: 34px"></td>
+      <td colspan="1">
+        <button class="btn btn-danger closeBtn">X</button>
+      </td>
+    </tr>
+    <tr>
+      <th style="text-align: center">商品图片</th>
+      <th style="text-align: center">商品名称</th>
+      <th style="text-align: center">商品单价</th>
+      <th style="text-align: center">商品数量</th>
+      <th style="text-align: center">小计</th>
+    </tr>
+    <tr th:each="product:${orders.orderDetailsList}" class="test">
+      <td style="height:100px; width:100px"><img th:src="'/pubimages/'+${product.product.p_image}" alt="image"
+                                                 height="100" width="100"></td>
+      <td style="line-height: 100px" th:text="${product.product.p_name}"></td>
+      <td style="line-height: 100px" th:text="'￥'+${product.product.p_price}"></td>
+      <td style="line-height: 100px" th:text="${product.od_count}"></td>
+      <td style="line-height: 100px" th:text="'￥'+${product.od_count*product.product.p_price}">
+    </tr>
+    <tr>
+      <td colspan="1" style="line-height: 100px;">
+      <td colspan="1" style="line-height: 100px;font-size:20px;color:red;font-weight:normal;"
+          th:text="'总价:  ￥'+${orders.totalmoney}">
+      <td colspan="2" style="line-height: 33.3px">
+        <span th:text="'收货人:'+${orders.username}"></span>
+        <br>
+        <span th:text="'电话:'+${orders.telephone}"></span>
+        <br>
+        <span th:text="'收货地址:'+${orders.address}"></span>
+      </td>
+      <td colspan="1" style="line-height: 100px" th:if="${orders.paystate}!=1">未付款</td>
+      <td colspan="1" style="line-height: 100px" th:if="${orders.paystate==1&&orders.Destate!=1}">未发货</td>
+      <td colspan="1" style="line-height: 100px" th:if="${orders.paystate==1&&orders.Destate==1}">已发货</td>
+    </tr>
+  </table>
 </div>
 <script>
-    $(".closeBtn").on('click',function () {
-        $(".iframe", window.parent.document).hide();
-    })
+  $(".closeBtn").on('click', function () {
+    $(".iframe", window.parent.document).hide();
+  })
 </script>
 </body>
 </html>

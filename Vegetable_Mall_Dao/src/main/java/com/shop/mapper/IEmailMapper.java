@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 /**
  * @author 84735
  */
-@Repository
+//@Repository
 public interface IEmailMapper {
     /** 查询Email是否存在
      * @param email

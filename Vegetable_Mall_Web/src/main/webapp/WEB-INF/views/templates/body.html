@@ -1,41 +1,44 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <meta charset="UTF-8">
+  <title>Title</title>
 </head>
 <body>
 <div th:fragment="body">
-<section class="text-center">
+  <section class="text-center">
     <div class="container">
-        <h3 class="title f-30">所有商品</h3>
-        <div  class="owl-item" data-items="5"  data-itemsDesktopSmall="2" data-itemsTablet="2"  data-transitionstyle="backslide" data-singleItem="false" data-autoplay="false" data-pag="true" data-buttons="true">
-            <tr th:each="Product:${pageInfo.list}">
-                <td><div class="col-lg-12" style="width: 285px;height: 450px;float: left">
-                    <div class="product-item">
-                        <a th:href="@{'/detail?p_id='+${Product.p_id}}" >
-                            <img th:src="'/pubimages/'+${Product.p_image}" alt="image" height="200" width="200">
-                        </a>
-                        <div class="product-caption">
-                            <h4 class="product-name">
-                                <a th:href="@{'/detail?p_id='+${Product.p_id}}" th:text="${Product.p_name}"></a>
-                            </h4>
-                            <div class="product-price-group">
-                                <span class="product-price" th:text="'￥'+${Product.p_price}"></span>
-                                <span class="product-list" th:text="'库存: '+${Product.p_inventory}+' 件'"></span>
-                            </div>
-                            <p class="ht-btn-group">
-                                <button class="btn ht-btn bg-3 m-t-0 add">加入购物车</button>
-                                <span id="p_id" th:text="${Product.p_id}" class="hidden"></span>
-                            </p>
-                        </div>
-                    </div>
+      <h3 class="title f-30">所有商品</h3>
+      <div class="owl-item" data-items="5" data-itemsDesktopSmall="2" data-itemsTablet="2"
+           data-transitionstyle="backslide" data-singleItem="false" data-autoplay="false" data-pag="true"
+           data-buttons="true">
+        <tr th:each="Product:${pageInfo.list}">
+          <td>
+            <div class="col-lg-12" style="width: 285px;height: 450px;float: left">
+              <div class="product-item">
+                <a th:href="@{'/detail?p_id='+${Product.p_id}}">
+                  <img th:src="'/pubimages/'+${Product.p_image}" alt="image" height="200" width="200">
+                </a>
+                <div class="product-caption">
+                  <h4 class="product-name">
+                    <a th:href="@{'/detail?p_id='+${Product.p_id}}" th:text="${Product.p_name}"></a>
+                  </h4>
+                  <div class="product-price-group">
+                    <span class="product-price" th:text="'￥'+${Product.p_price}"></span>
+                    <span class="product-list" th:text="'库存: '+${Product.p_inventory}+' 件'"></span>
+                  </div>
+                  <p class="ht-btn-group">
+                    <button class="btn ht-btn bg-3 m-t-0 add">加入购物车</button>
+                    <span id="p_id" th:text="${Product.p_id}" class="hidden"></span>
+                  </p>
                 </div>
-                </td>
-            </tr>
-        </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </div>
     </div>
-</section>
+  </section>
 </div>
 </body>
 </html>

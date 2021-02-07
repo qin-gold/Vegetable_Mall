@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * @author qsj
  */
-@Repository
+//@Repository
 public interface IShopCartMapper {
 
     /** 根据用户id查询购物车全部数据

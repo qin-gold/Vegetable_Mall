@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 /**
  * @author qsj
  */
-@Repository
+//@Repository
 public interface IAdminMapper {
     /** 管理员登录的方法
      * @param admin

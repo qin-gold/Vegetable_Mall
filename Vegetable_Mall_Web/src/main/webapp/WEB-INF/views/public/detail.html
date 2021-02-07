@@ -1,190 +1,200 @@
 ﻿<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<title>商品显示页面</title>
-		<!-- JqueryUI -->
-		<link rel="stylesheet" type="text/css" href="../../../css/jquery-ui.css">
-		<!-- Bootstrap -->
-		<link rel="stylesheet" type="text/css" href="../../../css/bootstrap.min.css">
-		<!-- Awesome font icons -->
-		<link rel="stylesheet" type="text/css" href="../../../css/font-awesome.min.css" media="screen">
-		<!-- Owlcoursel -->
-		<link rel="stylesheet" type="text/css" href="../../../css/owl-coursel/owl.carousel.css">
-		<link rel="stylesheet" type="text/css" href="../../../css/owl-coursel/owl.transitions.css">
-		<!-- Magnific-popup -->
-		<link rel="stylesheet" type="text/css" href="../../../css/magnific-popup/magnific-popup.css">
-		<!-- Magnific-popup -->
-		<link rel="stylesheet" type="text/css" href="../../../css/magnific-popup/magnific-popup.css">
-		<!-- Style -->
-		<link rel="stylesheet" type="text/css" href="../../../css/style.css" media="screen">
-		<!-- Fw -->
-		<link rel="stylesheet" type="text/css" href="../../../css/fw.css" media="screen">
-	</head>
-	<body>
-		<div class="preloader">
-			<i class="fa fa-spinner"></i>
-		</div>
-		<header th:insert="templates/head :: header"></header>
-		<div class="heading-inner-page">
-			<div class="container">
-				<h2>商品显示</h2>
-				<ul class="breadcrumb">
-					<li><a href="/index">首页</a></li>
-					<li>商品显示</li>
-				</ul>
-			</div>
-		</div>
-		<!-- 推荐商品 -->
-		<section class="m-t-30">
-			<div class="container">
-					<div class="row">
-						<!-- Product image gallery -->
-						<div class="col-sm-6 col-md-7">
-							<ul class="thumbnails p-0">
-								<li>
-									<a class="thumbnail img-large image-zoom" th:href="@{'/pubimages/'+${product.p_image}}" title="iPhone">
-										<img th:src="'/pubimages/'+${product.p_image}" alt="image" height="250" width="250">
-									</a>
-								</li>
-							</ul>
-						</div>
-						<!-- Product decr -->
-						<div class="col-sm-6 col-md-5">
-							<div class="product-pare m-t-xs-60">
-								<h1 th:text="${product.p_name}"></h1>
-								<ul class="list-unstyled m-b-20">
-									库存:<li th:text="' '+${product.p_inventory}"></li>
-								</ul>
-								商品描述:<p th:text="${product.p_overview}"></p>
-								<p class="product-price" th:text="'￥'+${product.p_price}"></p>
-								<div class="quantily-wrap">
-									<label class="control-label" for="input-quantity"></label>
-									<input type="number" value="1" size="2" id="input-quantity" class="form-control form-item" min="1" max="10" onblur="pdNumber()">
-								</div>
-								<button class="btn ht-btn bg-3 m-t-0" onclick="addShopCart()">加入购物车</button>
-							</div>
-						</div>
-					</div><!-- End row -->
-			</div>
-		</section>
-		<section class="text-center">
-			<div class="container">
-				<h3 class="title f-30">特价商品</h3>
-				<p>每天都会有不同的特价商品</p>
-				<div class="row">
-					<tr th:each="list:${list}" class="owl" data-items="4" data-itemsDesktop="3" data-itemsDesktopSmall="2" data-itemsTablet="2" data-itemsMobile="1" data-transitionstyle="backslide" data-singleItem="false" data-autoplay="false" data-pag="false" data-buttons="false">
-						<td><div class="col-lg-12" style="width: 285px;height: 450px;float: left">
-							<div class="product-item">
-								<a th:href="@{'/detail?p_id='+${list.p_id}}" >
-									<img th:src="'/pubimages/'+${list.p_image}" alt="image" height="200" width="200">
-								</a>
-								<div class="product-caption">
-									<h4 class="product-name">
-										<a th:href="@{'/detail?p_id='+${list.p_id}}" th:text="${list.p_name}"></a>
-									</h4>
-									<div class="product-price-group">
-										<span class="product-price" th:text="'￥'+${list.p_price}"></span>
-										<span class="product-list" th:text="'库存: '+${list.p_inventory}+' 件'"></span>
-									</div>
-									<p class="ht-btn-group">
-										<button class="btn ht-btn bg-3 m-t-0 add">加入购物车</button>
-										<span id="p_id" th:text="${list.p_id}" class="hidden"></span>
-									</p>
-								</div>
-							</div>
-						</div>
-						</td>
-					</tr>
-				</div>
-			</div>
-		</section>
-		<footer th:insert="templates/footer :: footers"></footer>
-		<!-- jQuery -->
-		<script src="../../../js/jquery/jquery-2.2.4.min.js"></script>
-		<!-- JqueryUI -->
-		<script src="../../../js/jquery/jquery-ui.js"></script>
-		<!-- Bootstrap -->
-		<script src="../../../js/bootstrap/bootstrap.min.js"></script>
-		<!-- Owl-coursel -->
-		<script src="../../../js/owl-coursel/owl.carousel.js"></script>
-		<!-- Magnific-popup -->
-		<script src="../../../js/magnific-popup/jquery.magnific-popup.min.js"></script>
-		<!-- Script -->
-		<script src="../../../js/script.js"></script>
-		<script src="../../../js/alter.js"></script>
-		<script th:inline="javascript">
-			$(".add").on('click',function () {
-				let p_id=$(this).parents("p").find("#p_id").text();
-				console.log(p_id)
-				$.ajax({
-					type:"post",
-					url:"/loginBefore/addToShoppingCart",
-					async:true,
-					data:{p_id:p_id,p_count:1},
-					dataType:"JSON",
-					success:function(data){
-						if (data.stateCode==200){
-							alert("成功添加到购物车!");
-						}else {
-							alert("添加到购物车失败!");
-						}
-					},
-					error:function(XMLHttpRequest){
-						var redirect=XMLHttpRequest.getResponseHeader("REDIRECT");
-						if(redirect=="REDIRECT"){
-							alert("请先登录后添加到购物车！");
-							window.location.href=XMLHttpRequest.getResponseHeader("CONTEXTPATH");
-						}
-					},
-				});
-			})
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>商品显示页面</title>
+  <!-- JqueryUI -->
+  <link rel="stylesheet" type="text/css" href="/css/jquery-ui.css">
+  <!-- Bootstrap -->
+  <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+  <!-- Awesome font icons -->
+  <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css" media="screen">
+  <!-- Owlcoursel -->
+  <link rel="stylesheet" type="text/css" href="/css/owl-coursel/owl.carousel.css">
+  <link rel="stylesheet" type="text/css" href="/css/owl-coursel/owl.transitions.css">
+  <!-- Magnific-popup -->
+  <link rel="stylesheet" type="text/css" href="/css/magnific-popup/magnific-popup.css">
+  <!-- Magnific-popup -->
+  <link rel="stylesheet" type="text/css" href="/css/magnific-popup/magnific-popup.css">
+  <!-- Style -->
+  <link rel="stylesheet" type="text/css" href="/css/style.css" media="screen">
+  <!-- Fw -->
+  <link rel="stylesheet" type="text/css" href="/css/fw.css" media="screen">
+  <link rel="stylesheet" type="text/css" href="/js/layui/css/layui.css" media="screen">
+  <script src="/js/layui/layui.all.js"></script>
+</head>
+<body>
+<div class="preloader">
+  <i class="fa fa-spinner"></i>
+</div>
+<header th:insert="templates/head :: header"></header>
+<div class="heading-inner-page">
+  <div class="container">
+    <h2>商品显示</h2>
+    <ul class="breadcrumb">
+      <li><a href="/index">首页</a></li>
+      <li>商品显示</li>
+    </ul>
+  </div>
+</div>
+<!-- 推荐商品 -->
+<section class="m-t-30">
+  <div class="container">
+    <div class="row">
+      <!-- Product image gallery -->
+      <div class="col-sm-6 col-md-7">
+        <ul class="thumbnails p-0">
+          <li>
+            <a class="thumbnail img-large image-zoom" th:href="@{'/pubimages/'+${product.p_image}}" title="iPhone">
+              <img th:src="'/pubimages/'+${product.p_image}" alt="image" height="250" width="250">
+            </a>
+          </li>
+        </ul>
+      </div>
+      <!-- Product decr -->
+      <div class="col-sm-6 col-md-5">
+        <div class="product-pare m-t-xs-60">
+          <h1 th:text="${product.p_name}"></h1>
+          <ul class="list-unstyled m-b-20">
+            库存:
+            <li th:text="' '+${product.p_inventory}"></li>
+          </ul>
+          商品描述:<p th:text="${product.p_overview}"></p>
+          <p class="product-price" th:text="'￥'+${product.p_price}"></p>
+          <div class="quantily-wrap">
+            <label class="control-label" for="input-quantity"></label>
+            <input type="number" value="1" size="2" id="input-quantity" class="form-control form-item" min="1" max="10"
+                   onblur="pdNumber()">
+          </div>
+          <button class="btn ht-btn bg-3 m-t-0" onclick="addShopCart()">加入购物车</button>
+        </div>
+      </div>
+    </div><!-- End row -->
+  </div>
+</section>
+<section class="text-center">
+  <div class="container">
+    <h3 class="title f-30">特价商品</h3>
+    <p>每天都会有不同的特价商品</p>
+    <div class="row">
+      <tr th:each="list:${list}" class="owl" data-items="4" data-itemsDesktop="3" data-itemsDesktopSmall="2"
+          data-itemsTablet="2" data-itemsMobile="1" data-transitionstyle="backslide" data-singleItem="false"
+          data-autoplay="false" data-pag="false" data-buttons="false">
+        <td>
+          <div class="col-lg-12" style="width: 285px;height: 450px;float: left">
+            <div class="product-item">
+              <a th:href="@{'/detail?p_id='+${list.p_id}}">
+                <img th:src="'/pubimages/'+${list.p_image}" alt="image" height="200" width="200">
+              </a>
+              <div class="product-caption">
+                <h4 class="product-name">
+                  <a th:href="@{'/detail?p_id='+${list.p_id}}" th:text="${list.p_name}"></a>
+                </h4>
+                <div class="product-price-group">
+                  <span class="product-price" th:text="'￥'+${list.p_price}"></span>
+                  <span class="product-list" th:text="'库存: '+${list.p_inventory}+' 件'"></span>
+                </div>
+                <p class="ht-btn-group">
+                  <button class="btn ht-btn bg-3 m-t-0 add">加入购物车</button>
+                  <span id="p_id" th:text="${list.p_id}" class="hidden"></span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </div>
+  </div>
+</section>
+<footer th:insert="templates/footer :: footers"></footer>
+<!-- jQuery -->
+<script src="/js/jquery/jquery-2.2.4.min.js"></script>
+<!-- JqueryUI -->
+<script src="/js/jquery/jquery-ui.js"></script>
+<!-- Bootstrap -->
+<script src="/js/bootstrap/bootstrap.min.js"></script>
+<!-- Owl-coursel -->
+<script src="/js/owl-coursel/owl.carousel.js"></script>
+<!-- Magnific-popup -->
+<script src="/js/magnific-popup/jquery.magnific-popup.min.js"></script>
+<!-- Script -->
+<script src="/js/script.js"></script>
+<script src="/js/alter.js"></script>
+<script th:inline="javascript">
+  let layer = layui.layer;
+  $(".add").on('click', function () {
+    let p_id = $(this).parents("p").find("#p_id").text();
+    console.log(p_id)
+    $.ajax({
+      type: "post",
+      url: "/loginBefore/addToShoppingCart",
+      async: true,
+      data: {p_id: p_id, p_count: 1},
+      dataType: "JSON",
+      success: function (data) {
+        if (data.stateCode == 200) {
+          layer.alert("成功添加到购物车!");
+        } else {
+          layer.alert("添加到购物车失败!");
+        }
+      },
+      error: function (XMLHttpRequest) {
+        var redirect = XMLHttpRequest.getResponseHeader("REDIRECT");
+        if (redirect == "REDIRECT") {
+          layer.alert("请先登录后添加到购物车！");
+          window.location.href = XMLHttpRequest.getResponseHeader("CONTEXTPATH");
+        }
+      },
+    });
+  })
 
-			function pdNumber() {
-				let p_count = $("#input-quantity");
-				console.log(p_count.val())
-				if (p_count.val()<=0||p_count.val()>=11){
-					p_count.val(1)
-				}
-			}
-			function addShopCart() {
-				let p_count = $("#input-quantity").val();
-				var p_id=[[${product.p_id}]]
-				$.ajax({
-					type:"post",
-					url:"/loginBefore/addToShoppingCart",
-					async:true,
-					data:{p_id:p_id,p_count:p_count},
-					dataType:"JSON",
-					success:function(data){
-						if (data.stateCode==200){
-							alert("成功添加到购物车!");
-						}else {
-							alert("添加到购物车失败!");
-						}
-					},
-					error:function(XMLHttpRequest){
-						var redirect=XMLHttpRequest.getResponseHeader("REDIRECT");
-						if(redirect=="REDIRECT"){
-							alert("请先登录后添加到购物车！");
-							window.location.href=XMLHttpRequest.getResponseHeader("CONTEXTPATH");
-						}
-					},
-				});
-			}
-			$(".search").on('click',function () {
-				var val = $(".form-item").val();
-				var str = val.replace(/(^\s*)|(\s*$)/g, '')
-				if (str===null||str===''){
-					alert("请输入你要搜索的信息")
-				}else {
-					console.log(val)
-					window.location.href="/search?text="+str
-				}
-			})
-		</script>
-	</body>
+  function pdNumber() {
+    let p_count = $("#input-quantity");
+    console.log(p_count.val())
+    if (p_count.val() <= 0 || p_count.val() >= 11) {
+      p_count.val(1)
+    }
+  }
+
+  function addShopCart() {
+    let p_count = $("#input-quantity").val();
+    var p_id = [[${product.p_id}]]
+    $.ajax({
+      type: "post",
+      url: "/loginBefore/addToShoppingCart",
+      async: true,
+      data: {p_id: p_id, p_count: p_count},
+      dataType: "JSON",
+      success: function (data) {
+        if (data.stateCode == 200) {
+          layer.msg("成功添加到购物车!",{icon:6});
+        } else {
+          layer.alert("添加到购物车失败!");
+        }
+      },
+      error: function (XMLHttpRequest) {
+        var redirect = XMLHttpRequest.getResponseHeader("REDIRECT");
+        if (redirect == "REDIRECT") {
+          layer.alert("请先登录后添加到购物车！",function () {
+          window.location.href = XMLHttpRequest.getResponseHeader("CONTEXTPATH");
+          });
+        }
+      },
+    });
+  }
+
+  $(".search").on('click', function () {
+    var val = $(".form-item").val();
+    var str = val.replace(/(^\s*)|(\s*$)/g, '')
+    if (str === null || str === '') {
+      layer.alert("请输入你要搜索的信息")
+    } else {
+      window.location.href = "/search?text=" + str
+    }
+  })
+</script>
+</body>
 </html>
 

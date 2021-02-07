@@ -1,107 +1,114 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>蔬菜区</title>
-	<!-- JqueryUI -->
-	<link rel="stylesheet" type="text/css" href="../../../css/jquery-ui.css">
-	<!-- Bootstrap -->
-	<link rel="stylesheet" type="text/css" href="../../../css/bootstrap.min.css">
-	<!-- Awesome font icons -->
-	<link rel="stylesheet" type="text/css" href="../../../css/font-awesome.min.css" media="screen">
-	<!-- Owlcoursel -->
-	<link rel="stylesheet" type="text/css" href="../../../css/owl-coursel/owl.carousel.css">
-	<link rel="stylesheet" type="text/css" href="../../../css/owl-coursel/owl.transitions.css">
-	<!-- Magnific-popup -->
-	<link rel="stylesheet" type="text/css" href="../../../css/magnific-popup/magnific-popup.css">
-	<!-- Style -->
-	<link rel="stylesheet" type="text/css" href="../../../css/style.css" media="screen">
-	<!-- Fw -->
-	<link rel="stylesheet" type="text/css" href="../../../css/fw.css" media="screen">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>蔬菜区</title>
+  <!-- JqueryUI -->
+  <link rel="stylesheet" type="text/css" href="/css/jquery-ui.css">
+  <!-- Bootstrap -->
+  <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+  <!-- Awesome font icons -->
+  <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css" media="screen">
+  <!-- Owlcoursel -->
+  <link rel="stylesheet" type="text/css" href="/css/owl-coursel/owl.carousel.css">
+  <link rel="stylesheet" type="text/css" href="/css/owl-coursel/owl.transitions.css">
+  <!-- Magnific-popup -->
+  <link rel="stylesheet" type="text/css" href="/css/magnific-popup/magnific-popup.css">
+  <!-- Style -->
+  <link rel="stylesheet" type="text/css" href="/css/style.css" media="screen">
+  <!-- Fw -->
+  <link rel="stylesheet" type="text/css" href="/css/fw.css" media="screen">
+  <link rel="stylesheet" type="text/css" href="/js/layui/css/layui.css" media="screen">
+  <script src="/js/layui/layui.all.js"></script>
 </head>
 <body>
+<div class="preloader">
+  <i class="fa fa-spinner"></i>
+</div>
 <!--头部-->
 <header th:insert="templates/head :: header"></header>
 <!--描述-->
 <div class="heading-inner-page">
-	<div class="container">
-		<h2>蔬菜区</h2>
-		<ul class="breadcrumb">
-			<li><a href="/index">首页</a></li>
-			<li>蔬菜区</li>
-		</ul>
-	</div>
+  <div class="container">
+    <h2>蔬菜区</h2>
+    <ul class="breadcrumb">
+      <li><a href="/index">首页</a></li>
+      <li>蔬菜区</li>
+    </ul>
+  </div>
 </div>
 <!--主体-->
 <div th:replace="templates/body :: body"/>
 <!--翻页-->
 <ul class="pagination" style="margin:0 0 0 40%">
-	<div class="btn-group btn-group-lg">
-		<ul class="pagination">
-			<li><a class="btn-group" role="group" href="/vegetables?page=1">首页</a></li>
-			<li><a th:href="@{'/vegetables?page='+${pageInfo.pageNum-1}}">上一页</a></li>
-			<li th:each="pr:${pageInfo.navigatepageNums}">
-				<a th:href="@{'/vegetables?page='+${pr}}" th:text="${pr}"></a>
-			</li>
-			<li><a th:href="@{'/vegetables?page='+${pageInfo.pageNum+1}}">下一页</a></li>
-			<li><a th:href="@{'/vegetables?page='+${pageInfo.navigateLastPage}}" aria-label="Next">尾页</a></li>
-		</ul>
-	</div>
+  <div class="btn-group btn-group-lg">
+    <ul class="pagination">
+      <li><a class="btn-group" role="group" href="/vegetables?page=1">首页</a></li>
+      <li><a th:href="@{'/vegetables?page='+${pageInfo.pageNum-1}}">上一页</a></li>
+      <li th:each="pr:${pageInfo.navigatepageNums}">
+        <a th:href="@{'/vegetables?page='+${pr}}" th:text="${pr}"></a>
+      </li>
+      <li><a th:href="@{'/vegetables?page='+${pageInfo.pageNum+1}}">下一页</a></li>
+      <li><a th:href="@{'/vegetables?page='+${pageInfo.navigateLastPage}}" aria-label="Next">尾页</a></li>
+    </ul>
+  </div>
 </ul>
 <!--尾部-->
 <footer th:insert="templates/footer :: footers"></footer>
 
 <!-- jQuery -->
-<script src="../../../js/jquery/jquery-2.2.4.min.js"></script>
+<script src="/js/jquery/jquery-2.2.4.min.js"></script>
 <!-- JqueryUI -->
-<script src="../../../js/jquery/jquery-ui.js"></script>
+<script src="/js/jquery/jquery-ui.js"></script>
 <!-- Bootstrap -->
-<script src="../../../js/bootstrap/bootstrap.min.js"></script>
+<script src="/js/bootstrap/bootstrap.min.js"></script>
 <!-- Owl-coursel -->
-<script src="../../../js/owl-coursel/owl.carousel.js"></script>
+<script src="/js/owl-coursel/owl.carousel.js"></script>
 <!-- Magnific-popup -->
-<script src="../../../js/magnific-popup/jquery.magnific-popup.min.js"></script>
+<script src="/js/magnific-popup/jquery.magnific-popup.min.js"></script>
 <!-- Script -->
-<script src="../../../js/script.js"></script>
-<script src="../../../js/alter.js"></script>
+<script src="/js/script.js"></script>
+<script src="/js/alter.js"></script>
 <script th:inline="javascript">
-	$(".add").on('click',function () {
-		let p_id=$(this).parents("p").find("#p_id").text();
-		console.log(p_id)
-			$.ajax({
-				type:"post",
-				url:"/loginBefore/addToShoppingCart",
-				async:true,
-				data:{p_id:p_id,p_count:1},
-				dataType:"JSON",
-				success:function(data){
-					if (data.stateCode==200){
-						alert("成功添加到购物车!");
-					}else {
-						alert("添加到购物车失败!");
-					}
-				},
-				error:function(XMLHttpRequest){
-					var redirect=XMLHttpRequest.getResponseHeader("REDIRECT");
-					if(redirect=="REDIRECT"){
-						alert("请先登录后添加到购物车！");
-						window.location.href=XMLHttpRequest.getResponseHeader("CONTEXTPATH");
-					}
-				},
-			});
-	})
-	$(".search").on('click',function () {
-		var val = $(".form-item").val();
-		var str = val.replace(/(^\s*)|(\s*$)/g, '')
-		if (str===null||str===''){
-			alert("请输入你要搜索的信息")
-		}else {
-			console.log(val)
-			window.location.href="/search?text="+str
-		}
-	})
+  let layer = layui.layer;
+  $(".add").on('click', function () {
+    let p_id = $(this).parents("p").find("#p_id").text();
+    console.log(p_id)
+    $.ajax({
+      type: "post",
+      url: "/loginBefore/addToShoppingCart",
+      async: true,
+      data: {p_id: p_id, p_count: 1},
+      dataType: "JSON",
+      success: function (data) {
+        if (data.stateCode == 200) {
+          layer.msg("成功添加到购物车!",{icon:6});
+        } else {
+          layer.alert("添加到购物车失败!");
+        }
+      },
+      error: function (XMLHttpRequest) {
+        var redirect = XMLHttpRequest.getResponseHeader("REDIRECT");
+        if (redirect == "REDIRECT") {
+          layer.alert("请先登录后添加到购物车！",function () {
+            window.location.href = XMLHttpRequest.getResponseHeader("CONTEXTPATH");
+          });
+        }
+      },
+    });
+  })
+  $(".search").on('click', function () {
+    var val = $(".form-item").val();
+    var str = val.replace(/(^\s*)|(\s*$)/g, '')
+    if (str === null || str === '') {
+      layer.alert("请输入你要搜索的信息")
+    } else {
+      console.log(val)
+      window.location.href = "/search?text=" + str
+    }
+  })
 </script>
 </body>
 </html>

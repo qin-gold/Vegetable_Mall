@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans 
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context 
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/security
+       http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <!-- 配置不过滤的资源（静态资源及登录相关） -->
+    <!-- 配置不拦截的资源 -->
+    <security:http pattern="/css/**" security="none"/>
+    <security:http pattern="/img/**" security="none"/>
+    <security:http pattern="/images/**" security="none"/>
+    <security:http pattern="/js/**" security="none"/>
+    <security:http pattern="/index.html" security="none"/>
+    <security:http security="none" pattern="/failer.html" />
+    <security:http auto-config="true" use-expressions="false" >
+        <!-- 配置资料连接，表示任意路径都需要ROLE_USER权限 -->
+        <security:intercept-url pattern="/**" access="ROLE_USER,ROLE_ADMIN" />
+        <!-- 自定义登陆页面，login-page 自定义登陆页面 authentication-failure-url 用户权限校验失败之后才会跳转到这个页面，如果数据库中没有这个用户则不会跳转到这个页面。
+            default-target-url 登陆成功后跳转的页面。 注：登陆页面用户名固定 username，密码 password，action:login -->
+        <security:form-login login-page="/login.html"
+                             login-processing-url="/login"
+                             default-target-url="/index"
+                             authentication-failure-url="/error"
+        />
+        <!-- 关闭跨域请求 -->
+        <security:csrf disabled="true"/>
+        <!-- 登出， invalidate-session 是否删除session logout-url：登出处理链接 logout-success-url：登出成功页面
+            注：登出操作 只需要链接到 logout即可登出当前用户 -->
+        <security:logout invalidate-session="true" logout-url="/logout"
+                         logout-success-url="/login.jsp" />
+        <!-- 关闭CSRF,默认是开启的 -->
+        <security:csrf disabled="true" />
+    </security:http>
+    <!-- 切换成数据库中的用户名和密码 -->
+    <security:authentication-manager>
+        <security:authentication-provider user-service-ref="userServiceImpl">
+            <!-- 配置加密的方式 -->
+<!--            <security:password-encoder ref="passwordEncoder"/>-->
+        </security:authentication-provider>
+    </security:authentication-manager>
+</beans>

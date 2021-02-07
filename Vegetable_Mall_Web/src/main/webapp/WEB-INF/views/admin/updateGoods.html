@@ -1,94 +1,111 @@
 <!DOCTYPE html>
 <!-- 网页使用的语言 -->
 <html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
-    <head>
-    	<base href="<%=basePath%>"/>
-        <!-- 指定字符集 -->
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>修改商品</title>
-        <link href="../../../css/bootstrap.min.css" rel="stylesheet">
-        <script src="../../../js/jquery.js"></script>
-        <script src="../../../js/alter.js"></script>
-    </head>
-    <body>
-        <div class="container" style="width: 400px;">
-        <h3 style="text-align: center;">修改商品</h3>
-        <form action="" method="post">
-            <div class="form-group">
-                <input th:value=${Product.p_id} type="text" class="form-control" id="p_id" name="p_id" readonly="true" style="display: none">
-            </div>
-          <div class="form-group">
-          	<label for="p_name">名称：</label>
-          	<input th:value=${Product.p_name} type="text" class="form-control" id="p_name" name="p_name" placeholder="请输入名称">
-          </div>
-          <div class="form-group">
-          	<label for="p_price">价格：</label>
-          	<input th:value=${Product.p_price} type="number" class="form-control" id="p_price" name="p_price" placeholder="请输入价格">
-          </div>
-          <div class="form-group">
-          	<label for="p_inventory">库存量：</label>
-          	<input th:value=${Product.p_inventory} type="number" class="form-control" id="p_inventory" name="p_inventory" placeholder="请输入库存量">
-          </div>
-          <div class="form-group">
-          	<label for="p_overview">概述：</label>
-              <textarea th:text=${Product.p_overview} type="text" class="form-control" id="p_overview" name="p_overview" placeholder="请输入商品概述" ></textarea>
-          </div>
-          <div class="form-group">
-          	<label for="d_id">商品类型</label>
-          	<select name="Type" class="form-control" id="d_id" >
-          		<option th:selected="${Product.description.d_remark eq Description.d_remark}"
-                        th:each="Description:${Description}"
-                        th:value="${Description.d_id}"
-                        th:text="${Description.d_remark}">
-                </option>
-          	</select>
-          </div>
-          <div class="form-group">
-                <label for="p_inventory">是否热销</label>
-                <br>
-                <input th:checked="${Product.p_isHot eq 1}" type="radio" name="p_isHot"  value="1"/>是
-                <input th:checked="${Product.p_isHot eq 0}" type="radio" name="p_isHot" value="0"/>否
-          </div>
-            <div class="form-group">
-                <label for="p_overview">商品图片：</label>
-                <br>
-                <img th:src="'/pubimages/'+${Product.p_image}" alt="image" height="150" width="150">
-            </div>
-             <div class="form-group" style="text-align: center">
-                <input type="button" class="btn btn-primary" value="修改" onclick="update()"/>
-                <input class="btn btn-default" type="reset" value="重置" />
-                <input type="button" class="btn btn-default" value="返回" onclick="back()"/>
-             </div>
-        </form>
-        </div>
-    </body>
-    <script>
-       function update() {
-           let p_id = $("#p_id").val();
-           let p_name = $("#p_name").val();
-           let p_price = $("#p_price").val();
-           let p_inventory = $("#p_inventory").val();
-           let p_overview = $("#p_overview").val();
-           let p_isHot = $('input[name=p_isHot]:checked').val();
-           let d_id = $("#d_id").val();
-           $.post("/admin/updateProduct",{p_id:p_id,p_name:p_name,p_price:p_price,p_inventory:p_inventory,p_overview:p_overview,d_id:d_id,p_isHot:p_isHot},function (data) {
-               if (data===null){
-                   alert("修改失败")
-               }
-               if (data.stateCode==200){
-                   alert("修改成功")
-                   location.href=window.location.href
-               }else if(data.stateCode==502){
-                   alert("热销产品过多请取消部分热销产品后再进行尝试")
-               }else {
-                   alert("修改失败")
-               }
-           })
-       }
-       function back() {
-        window.location.href="/admin/findAllProduct"
-       }
-    </script>
+<head>
+  <base href="<%=basePath%>"/>
+  <!-- 指定字符集 -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>修改商品</title>
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+  <script src="/js/jquery.js"></script>
+  <script src="/js/alter.js"></script>
+  <link rel="stylesheet" type="text/css" href="/js/layui/css/layui.css" media="screen">
+  <script src="/js/layui/layui.all.js"></script>
+</head>
+<body>
+<div class="container" style="width: 400px;">
+  <h3 style="text-align: center;">修改商品</h3>
+  <form action="" method="post">
+    <div class="form-group">
+      <input th:value=${Product.p_id} type="text" class="form-control" id="p_id" name="p_id" readonly="true"
+             style="display: none">
+    </div>
+    <div class="form-group">
+      <label for="p_name">名称：</label>
+      <input th:value=${Product.p_name} type="text" class="form-control" id="p_name" name="p_name" placeholder="请输入名称">
+    </div>
+    <div class="form-group">
+      <label for="p_price">价格：</label>
+      <input th:value=${Product.p_price} type="number" class="form-control" id="p_price" name="p_price"
+             placeholder="请输入价格">
+    </div>
+    <div class="form-group">
+      <label for="p_inventory">库存量：</label>
+      <input th:value=${Product.p_inventory} type="number" class="form-control" id="p_inventory" name="p_inventory"
+             placeholder="请输入库存量">
+    </div>
+    <div class="form-group">
+      <label for="p_overview">概述：</label>
+      <textarea th:text=${Product.p_overview} type="text" class="form-control" id="p_overview" name="p_overview"
+                placeholder="请输入商品概述"></textarea>
+    </div>
+    <div class="form-group">
+      <label for="d_id">商品类型</label>
+      <select name="Type" class="form-control" id="d_id">
+        <option th:selected="${Product.description.d_remark eq Description.d_remark}"
+                th:each="Description:${Description}"
+                th:value="${Description.d_id}"
+                th:text="${Description.d_remark}">
+        </option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="p_inventory">是否热销</label>
+      <br>
+      <input th:checked="${Product.p_isHot eq 1}" type="radio" name="p_isHot" value="1"/>是
+      <input th:checked="${Product.p_isHot eq 0}" type="radio" name="p_isHot" value="0"/>否
+    </div>
+    <div class="form-group">
+      <label for="p_overview">商品图片：</label>
+      <br>
+      <img th:src="'/pubimages/'+${Product.p_image}" alt="image" height="150" width="150">
+    </div>
+    <div class="form-group" style="text-align: center">
+      <input type="button" class="btn btn-primary" value="修改" onclick="update()"/>
+      <input class="btn btn-default" type="reset" value="重置"/>
+      <input type="button" class="btn btn-default" value="返回" onclick="back()"/>
+    </div>
+  </form>
+</div>
+</body>
+<script>
+  let layer = layui.layer;
+
+  function update() {
+    let p_id = $("#p_id").val();
+    let p_name = $("#p_name").val();
+    let p_price = $("#p_price").val();
+    let p_inventory = $("#p_inventory").val();
+    let p_overview = $("#p_overview").val();
+    let p_isHot = $('input[name=p_isHot]:checked').val();
+    let d_id = $("#d_id").val();
+    $.post("/admin/updateProduct", {
+      p_id: p_id,
+      p_name: p_name,
+      p_price: p_price,
+      p_inventory: p_inventory,
+      p_overview: p_overview,
+      d_id: d_id,
+      p_isHot: p_isHot
+    }, function (data) {
+      if (data === null) {
+        layer.alert("修改失败")
+      }
+      if (data.stateCode == 200) {
+        layer.alert("修改成功")
+        location.href = window.location.href
+      } else if (data.stateCode == 502) {
+        layer.alert("热销产品过多请取消部分热销产品后再进行尝试")
+      } else {
+        layer.alert("修改失败")
+      }
+    })
+  }
+
+  function back() {
+    window.location.href = "/admin/findAllProduct"
+  }
+</script>
 </html>

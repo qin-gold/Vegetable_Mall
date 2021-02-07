@@ -2,6 +2,7 @@ package com.shop.service;
 
 import com.shop.domain.User;
 import com.shop.domain.Result;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
 /**
@@ -9,7 +10,7 @@ import java.util.List;
  * @author qsj Cotter
  * @date 2020/10/7
  */
-public interface UserService {
+public interface UserService  {
 
     /** 查询所有用户
      * @param pageNum

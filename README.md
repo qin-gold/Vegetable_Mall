@@ -38,4 +38,6 @@
    ## 2.User
       username=qsj
       password=qwe123
+## 加入了layui优化了弹出警告框
+## 添加了spring security 具体功能还在测试中（未完成）
   

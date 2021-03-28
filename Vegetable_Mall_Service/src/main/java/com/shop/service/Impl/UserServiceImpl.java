@@ -76,12 +76,21 @@ public class UserServiceImpl implements UserService {
     @Override
     public Result updateUser(User user) throws Exception {
         Result result=new Result();
-        Integer integer = iUserMapper.updateUser(user);
-        if (integer>=1){
-            result.setStateCode(200);
-            return result;
+        int temp = iUserMapper.findUserByPhone(user.getPhone());
+        User byId = iUserMapper.findUserById(user.getU_id());
+        Integer integer = 0;
+        if (temp<=1){
+            if (byId.getPhone().equals(user.getPhone())){
+                integer = iUserMapper.updateUser(user);
+                if (integer>=1){
+                    result.setStateCode(200);
+                    result.setMsg("修改成功");
+                    return result;
+                }
+            }
         }
         result.setStateCode(404);
+        result.setMsg("该电话号码已注册");
         return result;
     }
 

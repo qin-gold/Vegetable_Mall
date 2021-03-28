@@ -77,13 +77,14 @@
     let o_id = $(".o_id").text();
     $.post("/loginBefore/payDone", {o_id: o_id}, function (data) {
           if (data === null) {
-            layer.alert("付款失败,是姿势不太正确吗")
+            layer.msg("付款失败,是姿势不太正确吗",{icon:3})
           }
           if (data.stateCode == 200) {
-            layer.alert("您已经付款成功坐等快递的到来吧")
+            layer.msg("您已经付款成功坐等快递的到来吧",{icon:1},function () {
             window.location.href = "/index"
+            })
           } else {
-            layer.alert("付款失败,是姿势不太正确吗")
+            layer.alert("付款失败,请检查所购买的商品库存是否足够",{icon:5})
           }
         }
     )
@@ -92,9 +93,8 @@
     var val = $(".form-item").val();
     var str = val.replace(/(^\s*)|(\s*$)/g, '')
     if (str === null || str === '') {
-      layer.alert("请输入你要搜索的信息")
+      layer.msg("请输入你要搜索的信息",{icon:6})
     } else {
-      console.log(val)
       window.location.href = "/search?text=" + str
     }
   })

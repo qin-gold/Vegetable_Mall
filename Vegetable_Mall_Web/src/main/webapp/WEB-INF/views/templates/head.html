@@ -25,7 +25,7 @@
             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
               <li th:unless="${session.user}"><a href="/login">登录</a></li>
               <li th:unless="${session.user}"><a href="/register">注册</a></li>
-              <li th:unless="${session.user}"><a href="/adminLogin/in">管理员登录</a></li>
+              <li th:unless="${session.user}"><a href="/admin/control">管理员登录</a></li>
               <li th:if="${session.user}"><a href="/" th:text="'当前用户:'+${session.user.u_name}"></a></li>
               <li th:if="${session.user}"><a href="/loginBefore/information">查看用户信息</a></li>
               <li th:if="${session.user}"><a href="/loginBefore/ordersView">查看我的订单</a></li>

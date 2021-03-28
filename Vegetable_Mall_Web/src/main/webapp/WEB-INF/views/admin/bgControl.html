@@ -173,18 +173,19 @@
     var checkUsername = username.replace(/(^\s*)|(\s*$)/g, '');
     var checkPassword = password.replace(/(^\s*)|(\s*$)/g, '');
     if (checkUsername == '' || checkUsername == null || checkPassword == '' || checkPassword == null) {
-      alert("你输入的用户名或密码为空，请重新输入")
+      layer.alert("你输入的用户名或密码为空，请重新输入")
       return;
     } else {
       $.post("/adminLogin/AdminLogin", {a_username: checkUsername, a_password: checkPassword}, function (data) {
         if (data === null) {
-          alert("账户或密码错误");
+          layer.alert("账户或密码错误");
         }
         if (data.stateCode === 200) {
-          alert("登陆成功")
-          window.location.href = '/admin/control'
+          layer.msg("登陆成功", {icon: 6,time:1000},function () {
+            window.location.href = "/admin/control"
+          })
         } else {
-          alert("账户或密码错误");
+          layer.alert("账户或密码错误");
         }
       }, "json")
     }

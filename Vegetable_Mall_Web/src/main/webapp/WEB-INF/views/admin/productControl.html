@@ -41,7 +41,7 @@
               <div class="navbar-form navbar-left" role="search">
                 <div class="form-group">
                   <input type="text" class="form-control w-auto" style="display: inline-block;"
-                         placeholder="输入商品编号或商品名称查询商品">
+                         placeholder="输入商品名称查询商品">
                   <button type="button" class="btn btn-primary" onclick="findLike()">点击查询</button>
                   <a href="/admin/findHotProduct">
                     <button type="button" class="btn btn-primary">点击查询热销产品</button>
@@ -158,8 +158,9 @@
         date: null,
         success: function (data) {
           if (data.stateCode == 200) {
-            layer.alert("修改成功")
-            window.location.href = window.location.href
+            layer.msg("修改成功" ,{icon: 6,time:1000},function () {
+              window.location.href = window.location.href
+            })
           } else {
             layer.alert("修改失败")
           }

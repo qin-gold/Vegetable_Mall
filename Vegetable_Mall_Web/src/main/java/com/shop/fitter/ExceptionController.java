@@ -16,8 +16,8 @@ import java.util.Map;
  * @author 84735
  */
 @ControllerAdvice
-public class exceptionController {
-@ExceptionHandler({ClassNotFoundException.class, FileNotFoundException.class})//要处理的异常
+public class ExceptionController {
+@ExceptionHandler({ClassNotFoundException.class, FileNotFoundException.class ,NullPointerException.class})//要处理的异常
 public String handle1Exception(Model model,HttpServletRequest request){
     //传入我们自己的错误状态码  404
     model.addAttribute("errorCode",404);

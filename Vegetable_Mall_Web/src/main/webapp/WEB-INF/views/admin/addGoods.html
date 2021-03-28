@@ -74,7 +74,7 @@
     console.log(p_name, p_price, p_inventory, p_overview, d_id)
     if ((p_name == '' || p_name == null) || (p_price == '' || p_price == null) || (p_inventory == '' || p_inventory == null) || (d_id == '' || d_id == null)) {
       layer.alert("数据不能为空")
-      $("#form").submit()
+      // $("#form").submit()
       return;
     } else {
       $.ajax({

@@ -19,6 +19,7 @@
 <div class="container" style="width: 400px;">
   <h3 style="text-align: center;">修改用户</h3>
   <form action="" method="post">
+    <input hidden name="u_id" th:value="${User.u_id}">
     <div class="form-group">
       <label for="u_name">姓名：</label>
       <input th:value="${User.u_name}" type="text" class="form-control" id="u_name" name="u_name"
@@ -58,48 +59,28 @@
 
   function update() {
     let u_name = $("#u_name").val();
+    let u_id = $("input[name='u_id']").val();
     let phone = $("#phone").val();
     let address = $("#address").val();
     let email = $("#email").val();
     let gender = $('input[name=gender]:checked').val();
     $.post('/admin/updateUser', {
+      u_id:u_id,
       u_name: u_name,
       phone: phone,
       address: address,
       email: email,
       gender: gender
     }, function (data) {
-      if (data.stateCode === null) {
+      if (data === null) {
         layer.alert("修改失败")
       }
       if (data.stateCode === 200) {
-        layer.alert("修改成功")
+        layer.alert(data.msg)
       } else {
-        layer.alert("修改失败")
+        layer.alert(data.msg)
       }
     })
-    // $.ajax({
-    //     type: 'post',
-    //     dataType: 'json',
-    //     contentType: 'application/json;charset=utf-8',
-    //     url: '/admin/updateUser',
-    //     data: JSON.stringify({
-    //         u_name: u_name,
-    //         phone: phone,
-    //         address: address,
-    //         email: email,
-    //         gender: gender
-    //     }),
-    //     success: function (data) {
-    //         if (data.stateCode === 200) {
-    //
-    //             layer.alert("修改成功")
-    //         } else {
-    //             layer.alert(data.stateCode)
-    //             layer.alert("修改失败")
-    //         }
-    //     }
-    // })
   }
 
   function back() {

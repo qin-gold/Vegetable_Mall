@@ -227,7 +227,7 @@
               layer.alert("删除失败");
             }
             if (data.stateCode === 200) {
-              layer.msg("删除成功",{icon:6,time:1000},function () {
+              layer.msg("删除成功",{icon:6,time:500},function () {
                 window.location.href = "/loginBefore/shoppingCart"
               })
             } else {
@@ -272,19 +272,20 @@
     load(count, p_id)
   })
   $(".empty").on('click', function () {
-    if (confirm("确定清空购物车？")) {
+    layer.confirm("确定清空购物车？",function () {
       $.post('/loginBefore/EmptyShopCart', function (data) {
         if (data === null) {
-          layer.alert("清空购物车失败")
+          layer.msg("清空购物车失败",{icon:6})
         }
         if (data.stateCode === 200) {
-          layer.alert("清空购物车成功")
+          layer.msg("清空购物车成功",{icon:6,time:1000},function () {
           window.location.href = "/loginBefore/shoppingCart"
+          })
         } else {
-          layer.alert("清空购物车失败")
+          layer.alert("清空购物车失败",{icon:6})
         }
       })
-    }
+    })
   })
 
   $(".submitButton").on('click', function () {
@@ -299,7 +300,6 @@
       return;
     }
     params = params.substring(1);
-    console.log(params)
     location.href = "/loginBefore/checkOut?" + params;
   })
 

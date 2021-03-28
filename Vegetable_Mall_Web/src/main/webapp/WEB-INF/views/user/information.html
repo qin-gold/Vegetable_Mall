@@ -46,6 +46,7 @@
         <div class="col-sm-6 col-sm-offset-3">
           <div class="box p-40 p-xs-20 bg-white">
             <div class="form-group">
+              <input hidden name="u_id" id="u_id" th:value="${user.u_id}">
               <label class="control-label" for="username">用户名</label>
               <input type="text" name="username" th:value="${user.u_name}" placeholder="请输入新的用户名" id="username"
                      class="form-control form-item">
@@ -94,6 +95,7 @@
   let layer = layui.layer;
   $(".update").on('click', function () {
     var username = $("#username").val();
+    var u_id = $("#u_id").val();
     var phone = $("#phone").val();
     var address = $("#address").val();
     var gender = $('input[name=gender]:checked').val();
@@ -105,6 +107,7 @@
       return;
     }
     $.post("/loginBefore/updateUser", {
+      u_id:u_id,
       u_name: checkUsername,
       phone: checkPhone,
       address: checkAddress,
@@ -114,9 +117,9 @@
         layer.alert("修改失败");
       }
       if (data.stateCode === 200) {
-        layer.alert("修改成功")
+        layer.alert(data.msg)
       } else {
-        layer.alert("修改失败");
+        layer.alert(data.msg);
       }
     }, "json")
   })

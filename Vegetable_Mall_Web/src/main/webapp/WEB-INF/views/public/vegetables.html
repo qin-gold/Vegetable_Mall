@@ -103,9 +103,8 @@
     var val = $(".form-item").val();
     var str = val.replace(/(^\s*)|(\s*$)/g, '')
     if (str === null || str === '') {
-      layer.alert("请输入你要搜索的信息")
+      layer.alert("请输入你要搜索的信息",{icon:3})
     } else {
-      console.log(val)
       window.location.href = "/search?text=" + str
     }
   })

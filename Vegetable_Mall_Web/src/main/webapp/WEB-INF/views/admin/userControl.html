@@ -69,7 +69,7 @@
                   <td th:if="${User.state}==1">封禁中</td>
                   <td th:if="${User.state}==0">正常</td>
                   <td>
-                    <button class="btn btn-primary update">修改用户信息</button>
+                    <button th:if="${User.state}==0" class="btn btn-primary update">修改用户信息</button>
                     <button th:if="${User.state}==1" class='btn btn-primary del0'>启用</button>
                     <button th:if="${User.state}==0" class='btn btn-primary del1'>禁用</button>
                   </td>
@@ -108,11 +108,9 @@
   let layer = layui.layer;
   $(".update").on('click', function () {
     var u_id = $(this).parents("tr").find("#u_id").text();
-    let confirm = window.confirm("你是否要修改用户信息");
-    if (confirm == true) {
+    layer.confirm("你是否要修改用户信息", {icon: 3}, function () {
       window.location.href = "/admin/findUserById?u_id=" + u_id;
-    }
-    console.log(u_id)
+    })
   })
 
   function findLike() {
@@ -124,34 +122,32 @@
 
   $(".del0").on('click', function () {
     var u_id = $(this).parents("tr").find("#u_id").text();
-    let confirm = window.confirm("你是否要修改用户的状态");
-    if (confirm) {
+    layer.confirm("你是否要修改用户的状态", {icon: 3}, function () {
       $.post('/admin/delUser0', {u_id: u_id}, function (data) {
         if (data.stateCode == 200) {
-          layer.alert("修改成功")
-          window.location.href = window.location.href
+          layer.msg("修改成功", {icon: 6},function () {
+            window.location.href = window.location.href
+          })
         } else {
-          layer.alert("修改失败")
+          layer.alert("修改失败", {icon: 6})
         }
       })
-    }
+    })
   })
 
   $(".del1").on('click', function () {
     var u_id = $(this).parents("tr").find("#u_id").text();
-    let confirm = window.confirm("你是否要修改用户的状态");
-    if (confirm) {
-      if (confirm) {
-        $.post('/admin/delUser1', {u_id: u_id}, function (data) {
-          if (data.stateCode == 200) {
-            layer.alert("修改成功")
-            window.location.href = window.location.href
-          } else {
-            layer.alert("修改失败")
-          }
-        })
-      }
-    }
+    layer.confirm("你是否要修改用户的状态", {icon: 3}, function () {
+      $.post('/admin/delUser1', {u_id: u_id}, function (data) {
+        if (data.stateCode == 200) {
+          layer.msg("修改成功", {icon: 6},function () {
+          window.location.href = window.location.href
+          })
+        } else {
+          layer.alert("修改失败", {icon: 6})
+        }
+      })
+    })
   })
 
   function bgControl() {

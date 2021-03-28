@@ -299,9 +299,9 @@
         layer.alert("生成订单失败");
       }
       if (data.stateCode === 200) {
-        layer.alert("生成订单成功正在跳转支付页面")
-        console.log(data.data)
-        window.location.href = '/loginBefore/payFor?o_id=' + data.data;
+        layer.alert("生成订单成功正在跳转支付页面",function () {
+          window.location.href = '/loginBefore/payFor?o_id=' + data.data;
+        })
       } else {
         layer.alert("生成订单失败");
       }

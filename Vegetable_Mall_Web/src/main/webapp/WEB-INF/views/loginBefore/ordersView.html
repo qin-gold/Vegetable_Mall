@@ -143,11 +143,12 @@
     if (confirm == true) {
       $.post("/loginBefore/userDelOrder", {o_id: order_number}, function (data) {
         if (data === null) {
-          layer.alert("删除失败")
+          layer.msg("删除失败",{icon:6})
         }
         if (data.stateCode == 200) {
-          layer.alert("删除成功")
-          location.href = window.location.href
+          layer.msg("删除成功",{icon:6,time:1000},function () {
+            location.href = window.location.href
+          })
         } else {
           layer.alert("删除失败")
         }
@@ -157,7 +158,6 @@
 
   function findLike() {
     var val = $(".input").val();
-    console.log(val)
     var str = val.replace(/(^\s*)|(\s*$)/g, '')
     window.location.href = "/loginBefore/findLikeOrders?text=" + str
   }
@@ -166,9 +166,8 @@
     var val = $(".form-item").val();
     var str = val.replace(/(^\s*)|(\s*$)/g, '')
     if (str === null || str === '') {
-      layer.alert("请输入你要搜索的信息")
+      layer.msg("请输入你要搜索的信息",{icon:3})
     } else {
-      console.log(val)
       window.location.href = "/search?text=" + str
     }
   })
